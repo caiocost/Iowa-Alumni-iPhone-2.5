@@ -201,7 +201,6 @@ function convertUTCDateToLocalDate(date, timeZone) {
     var timeZoneOffset = 5;
     var utc, newDate;
     var date1 = new Date();
-    Ti.API.log("the time zone: " + date1.getTimezoneOffset());
     if(timeZone != "" && timeZone != undefined){
     	var tz = timeZone.toString();
     	if(tz == 'PST' || tz == 'AKDT'){
