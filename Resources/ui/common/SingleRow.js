@@ -183,7 +183,7 @@ function performCalendarWriteFunctions(post){
 		    Ti.API.info(post.allDay);
 		    var event1;
 		    
-		    if (post.allDay == "Yes"){
+		    if (post.allDay == 1){
 		    	 event1 = defCalendar.createEvent({
 		                        title: post.title,
 		                        notes: post.description,

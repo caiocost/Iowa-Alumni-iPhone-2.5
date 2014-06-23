@@ -21,8 +21,8 @@ function Post(item) {//<----
     this.pubDate = item.pubDate;
     this.postDate = item.postDate;
     this.allDay = item.allDay;
-    this.startDate = startTime;
-    this.endDate = endTime;
+    this.startDate = startDate;
+    this.endDate = endDate;
     this.hlink = item.hlink;
     this.image = (new Description(item.description)).getImage();
     this.url = item.link;
