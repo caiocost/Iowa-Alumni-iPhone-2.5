@@ -10,7 +10,8 @@ function Post(item) {//<----
 	var startTime = formatDate(startDate);
 	var endDate = convertUTCDateToLocalDate(new Date(item.endDate), item.timeZone);
 	var endTime = formatDate(endDate);
-	var snl = startTime + (endTime != startTime ? " - " + endTime : '');
+	var tz = new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1];
+	var snl = startTime + (endTime != startTime ? " - " + endTime : '') + " (" + tz + ")";
 	if(isNaN(startDate.getHours()) || (item.useTimeInputField == 1) || (item.allDay == 1)){
 		 snl = item.snl;
 	}
