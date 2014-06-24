@@ -113,11 +113,12 @@ function GetFeed (feed){
             else if (feed == Feeds.eventsFeed() || feed == Feeds.eventsSportsCategoryFeed() || feed == Feeds.eventsUIAACategoryFeed() || 
             			feed == Feeds.eventsClubsCategoryFeed() || feed == Feeds.eventsStudentCategoryFeed()){
              	var timeZone = getRssText(item, 'timeZone');
+             	var tz = new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1];
             	var startDate = convertUTCDateToLocalDate(new Date(getRssText(item, 'startDate')), timeZone);
 				var startTime = formatDate(startDate);
 				var endDate = convertUTCDateToLocalDate(new Date(getRssText(item, 'endDate')), timeZone);
 				var endTime = formatDate(endDate);
-				var snl = startTime + (endTime != startTime ? " - " + endTime : '');
+				var snl = startTime + (endTime != startTime ? " - " + endTime : '') + " (" + tz + ")";
 				if(isNaN(startDate.getHours()) || (getRssText(item, 'useTimeInputField') == 1) || (getRssText(item, 'allDay') == 1)){
 					 snl = getRssText(item, 'snl');
 				}
