@@ -28,70 +28,67 @@ function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 			    animate:true,
 			})
 		);
-		
-	}
- 	
-	var curLatitude = clubData[0].latitude;
-	var curLongitude = clubData[0].longitude;
-	var map = Map.createView({
-		mapType: Map.NORMAL_TYPE,
-		region: {latitude: clubData[0].latitude, longitude: clubData[0].longitude,
-			latitudeDelta:0.01, longitudeDelta:0.01 },
-		animate: true,
-		regionFit: true,
-		userLocation: false,
-		height: 200,
-	    annotations: gameWatchInfo,
-		top: 0
-	});
-	
-	
-	var routeButton = Ti.UI.createButton({
-		title:'Get Route',
-		width:80,
-		height:30,
-		backgroundColor:'#66CCFF',
-		borderRadius:		5,
-		borderWidth: 		1,
-		//color: "#fff",
-		bottom: 5,
-  		left: 5,
-		font: {fontFamily:'Helvetica',fontSize:14,fontWeight:'bold'}
-		
-	});
-	map.add(routeButton);
-	
-	routeButton.addEventListener('click', function(e){
+		}
+		var curLatitude = clubData[0].latitude;
+		var curLongitude = clubData[0].longitude;
+		var map = Map.createView({
+			mapType: Map.NORMAL_TYPE,
+			region: {latitude: clubData[0].latitude, longitude: clubData[0].longitude,
+				latitudeDelta:0.01, longitudeDelta:0.01 },
+			animate: true,
+			regionFit: true,
+			userLocation: false,
+			height: 200,
+		    annotations: gameWatchInfo,
+			top: 0
+		});
 		
 		
-		if(Ti.Network.online){
-	        Ti.Geolocation.purpose = "Receive User Location";
-	        Titanium.Geolocation.getCurrentPosition(function(e){
-	
-	            if (!e.success || e.error)
-	            {
-	                alert('Could not find the device location');
-	                return;
-	            }
-	            var longitude = parseFloat( e.coords.longitude, 10).toFixed(5);
-	            var latitude =  parseFloat(e.coords.latitude, 10).toFixed(5);
-	
-	          
-				var url = 'http://maps.google.com/maps?saddr=' +latitude+ ',' + longitude + '&daddr=' + curLatitude+','+curLongitude;
-				new WebView (url);
-				 //Titanium.Platform.openURL(url); 
-				//alert("latitude: " + latitude + "longitude: " + longitude);
+		var routeButton = Ti.UI.createButton({
+			title:'Get Route',
+			width:80,
+			height:30,
+			backgroundColor:'#66CCFF',
+			borderRadius:		5,
+			borderWidth: 		1,
+			//color: "#fff",
+			bottom: 5,
+	  		left: 5,
+			font: {fontFamily:'Helvetica',fontSize:14,fontWeight:'bold'}
 			
-	        });
-		    }
-		   else{
-		        alert("Internet connection is required to use localization features");
-		   }/*
-		   */
-	});
-	
-
-	var table = Ti.UI.createTableView({
+		});
+		map.add(routeButton);
+		
+		routeButton.addEventListener('click', function(e){
+			
+			
+			if(Ti.Network.online){
+		        Ti.Geolocation.purpose = "Receive User Location";
+		        Titanium.Geolocation.getCurrentPosition(function(e){
+		
+		            if (!e.success || e.error)
+		            {
+		                alert('Could not find the device location');
+		                return;
+		            }
+		            var longitude = parseFloat( e.coords.longitude, 10).toFixed(5);
+		            var latitude =  parseFloat(e.coords.latitude, 10).toFixed(5);
+		
+		          
+					var url = 'http://maps.google.com/maps?saddr=' +latitude+ ',' + longitude + '&daddr=' + curLatitude+','+curLongitude;
+					new WebView (url);
+					 //Titanium.Platform.openURL(url); 
+					//alert("latitude: " + latitude + "longitude: " + longitude);
+				
+		        });
+			    }
+			   else{
+			        alert("Internet connection is required to use localization features");
+			   }/*
+			   */
+		});
+		
+		var table = Ti.UI.createTableView({
 		height: 'auto',
 		top: 200
 	});
@@ -161,32 +158,32 @@ function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 	    data.push(row);
 	    rowCounter++;
 	};
-	data = addRows(i, data, false);
-	table.setData(data);
-	
-	mapWin.add(map);
-	mapWin.add(table);
-	
-	table.addEventListener('click', function(e){
+		data = addRows(i, data, false);
+		table.setData(data);
 		
-		tracker.trackEvent({
-					category: "Game Watches",
-					action: "click",
-					label: clubData[e.index].club,
-					value: 1
+		mapWin.add(map);
+		mapWin.add(table);
+		
+		table.addEventListener('click', function(e){
+			
+			tracker.trackEvent({
+						category: "Game Watches",
+						action: "click",
+						label: clubData[e.index].club,
+						value: 1
+			});
+			
+			 map.setLocation({
+	    latitude: e.row.latitude, longitude: e.row.longitude, animate:true,
+	    latitudeDelta:0.01, longitudeDelta:0.01});
+	    
+			curLatitude =  e.row.latitude;
+			curLongitude =  e.row.longitude;
+			map.selectAnnotation(gameWatchInfo[e.index]);
 		});
 		
-		 map.setLocation({
-    latitude: e.row.latitude, longitude: e.row.longitude, animate:true,
-    latitudeDelta:0.01, longitudeDelta:0.01});
-    
-		curLatitude =  e.row.latitude;
-		curLongitude =  e.row.longitude;
-		map.selectAnnotation(gameWatchInfo[e.index]);
-	});
-	
-	return mapWin;
-}
+		return mapWin;
+	}
 
 //Helper Functions
 function addRows(i, data, flag){

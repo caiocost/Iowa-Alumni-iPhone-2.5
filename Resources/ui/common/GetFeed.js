@@ -135,7 +135,7 @@ function GetFeed (feed){
                     startDate: getRssText(item, 'startDate'),
                     endDate: getRssText(item, 'endDate'),
                     timeZone: timeZone,
-                    category:getRssText(item, 'category')                          
+                    category:getRssText(item, 'category')                     
             	});
                                         
            }
