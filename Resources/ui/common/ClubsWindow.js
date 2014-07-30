@@ -231,6 +231,7 @@ function addRows(i, data, flag){
 		    bottom: 10
 		});
 		data.push(row);
+		
 		var row = Ti.UI.createTableViewRow({
 		    height: 100,
 		    selectionStyle: 'none',

@@ -5,6 +5,7 @@ var ApplicationWindow = require('ui/common/ApplicationWindow');
 var StaticAd = require('ui/common/StaticAd');
 var Feed = require('ui/common/Feed');
 var  GameWatchWindow = require('ui/common/GameWatchWindow');
+var ClubsWindow = require('ui/common/ClubsWindow');
 /*
  * Root Window for Clubs and Gamewatches
  */
@@ -13,7 +14,7 @@ function StatesWindow(title, tracker){
 	tracker.trackScreen(title);
 	var Feeds = new Feed();
 	var masterView = Ti.UI.createView();
-	
+
 	var introLabel = Ti.UI.createLabel({
 			 text: 'Want to connect with fellow UI grads, need a place to watch the next game with fellow Hawkeye fans? IOWA clubs have you covered—find a location near you!',
 			 textAlign: 'left',
@@ -21,10 +22,10 @@ function StatesWindow(title, tracker){
 			 width: 300,
 			 top: 10,
 			font: {fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
-			        
+
 		});
 	masterView.add(introLabel);		
-	
+
 	var table = Ti.UI.createTableView({
 		height: 'auto',
 		left: 0,
@@ -32,22 +33,22 @@ function StatesWindow(title, tracker){
 		bottom: 70,
 		top: 145
 	});
-	
+
 	var people = Ti.UI.createImageView({
 	  image:    'clubsPeople.png',
 	  left: 10,
 	  width:  Ti.Platform.displayCaps.platformWidth - 20,
 	  top:   85
 	});
-	
+
 	masterView.add(people);
-	
-	var clubsInfo = new GetFeed(Feeds.clubsFeed());
-	var clubs = new GetFeed(Feeds.gameWatchFeed());
+
+	var clubs = new GetFeed(Feeds.clubsFeed());
+	var gameWatches = new GetFeed(Feeds.gameWatchFeed());
 	var data = [];
 	var rowCounter = 0;
 	for (var i = 0; i <= clubs.length - 1; i++) {
-		if ((i == 0) || ((clubs[i - 1].state != clubs[i].state) && i != 0) ){ 
+		if ((i == 0) || ((clubs[i - 1].state.toUpperCase() != clubs[i].state.toUpperCase()) && i != 0) ){ 
 		if (rowCounter % 2 == 0){
 			    var row = Ti.UI.createTableViewRow({
 			    	text: clubs[i].state,
@@ -63,69 +64,69 @@ function StatesWindow(title, tracker){
 		  }
 
 		var label = Ti.UI.createLabel({
-			 text: clubs[i].state,
+			 text: clubs[i].state.toUpperCase(),
 			 textAlign: 'center',
 			 font: {fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
-			        
+
 		});
-		   
+
 		    row.add(label);
 		    data.push(row);
 		  	rowCounter++;
 	    }
-	    
+
 	};
 
-
-	
- 
 	table.setData(data);
 	masterView.add(table);
 	table.addEventListener('click', function(e){
-		var stateClubs = getStateList(clubs, clubsInfo, e.row.text);
-		var gameWatchView = new GameWatchWindow(stateClubs[0], stateClubs[1],  tracker, 0);
-		var win = new  ClubsandWatchesScrollWindow(stateClubs[0], stateClubs[1], tracker, gameWatchView);
+		var stateClubs = getStateList(gameWatches, clubs, e.row.text);
+		var view;
+		try{
+			view = new GameWatchWindow(stateClubs[0], stateClubs[1],  tracker, 0);
+		}catch(err){
+			Ti.API.error("error parsing game watch information");
+			view = new ClubsWindow(stateClubs[0], stateClubs[1],  tracker, 0);
+		}
+		var win = new  ClubsandWatchesScrollWindow(stateClubs[0], stateClubs[1], tracker, view);
 		win.open();
-	
-		
+
 		tracker.trackEvent({
 			category: title,
 			action: "click",
 			label: e.row.text,
 			value: 1
 		});
-		
 	});
-	
-	
+
 	var ad = new StaticAd(11,395, tracker, title);
 	masterView.add(ad);
-	
-	
+
 	var self = new ApplicationWindow(title, masterView);
 	return self;
-	
 }
 
-function getStateList (clubsList, clubsInfoList, state){
+function getStateList (gameWatches, clubs, state){
 	var data = [];
 	var stateList = [];
 	var stateInfoList = [];
-	for (var i = 0; i <= clubsList.length - 1; i++){
-		if (clubsList[i].state == state ){
-			stateList.push(clubsList[i]);
+	Ti.API.info("state: " + state);
+	for (var i = 0; i <= gameWatches.length - 1; i++){
+		if ((gameWatches[i].state.toUpperCase()) == state ){
+			Ti.API.info("yes!: " + gameWatches[i]);
+			stateList.push(gameWatches[i]);
 		}
 	} 
 	data.push(stateList);
-	for (var i = 0; i <= clubsInfoList.length - 1; i++){
-		if ((clubsInfoList[i].state).toUpperCase() == state ){
-			stateInfoList.push(clubsInfoList[i]);
+	for (var i = 0; i <= clubs.length - 1; i++){
+		if ((clubs[i].state) == state ){
+			Ti.API.info("hoofhwo!");
+			stateInfoList.push(clubs[i]);
 		}
 	} 
-	
+
 	data.push(stateInfoList);
 	return data;
 }
-
 
 module.exports = StatesWindow;
