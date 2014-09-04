@@ -69,8 +69,8 @@ function SingleRow(post, tracker, title) {
   		right: 10,
   		zIndex: 5,
 		font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
-		
 	});
+	
 	if (post.startDate != 'NA' && post.endDate != 'NA') {
 		table.add(addEventButton);
 		textWidth = 190;
@@ -79,8 +79,8 @@ function SingleRow(post, tracker, title) {
 	
 	addEventButton.addEventListener('click', function(e){
 		if(Ti.Calendar.eventsAuthorization == Ti.Calendar.AUTHORIZATION_AUTHORIZED) {
-    		performCalendarWriteFunctions(post);
-		} 
+    		performCalendarWriteFunctions(post);  		
+		}
 		else {
     		Ti.Calendar.requestEventsAuthorization(function(e){
             if (e.success) {
@@ -169,7 +169,7 @@ function getTitleLabel(title) {
 }
 
 function performCalendarWriteFunctions(post){
-     var dlg = Titanium.UI.createAlertDialog({
+    var dlg = Titanium.UI.createAlertDialog({
      	title: post.title,
 	    message:'Do you want to save this event to your calendar?', 
 	    buttonNames: ['Yes','No']
@@ -192,8 +192,7 @@ function performCalendarWriteFunctions(post){
 		                        end: date2,
 		                        availability: Ti.Calendar.AVAILABILITY_FREE,
 		                        allDay: true,
-		     });
-  
+		     	});
 		    }
 		    else{
 		    	event1 = defCalendar.createEvent({
@@ -204,7 +203,7 @@ function performCalendarWriteFunctions(post){
 		                        end: date2,
 		                        availability: Ti.Calendar.AVAILABILITY_FREE,
 		                        allDay: false,
-		     });
+		     	});
 		    }
 		   
 	      	event1.save(Ti.Calendar.SPAN_THISEVENT);
@@ -214,7 +213,6 @@ function performCalendarWriteFunctions(post){
 	    }
 	});
 	dlg.show();
-
 }
 
 function getpubDateLabel(pubDate) {
