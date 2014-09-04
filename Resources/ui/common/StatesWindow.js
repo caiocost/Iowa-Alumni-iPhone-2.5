@@ -106,27 +106,26 @@ function StatesWindow(title, tracker){
 	return self;
 }
 
-function getStateList (gameWatches, clubs, state){
+function getStateList (gameWatches, clubsList, state){
 	var data = [];
 	var stateList = [];
 	var stateInfoList = [];
-	Ti.API.info("state: " + state);
 	for (var i = 0; i <= gameWatches.length - 1; i++){
-		if ((gameWatches[i].state.toUpperCase()) == state ){
-			Ti.API.info("yes!: " + gameWatches[i]);
+		if (gameWatches[i].state.toUpperCase() == state.toUpperCase()){
 			stateList.push(gameWatches[i]);
 		}
 	} 
 	data.push(stateList);
-	for (var i = 0; i <= clubs.length - 1; i++){
-		if ((clubs[i].state) == state ){
-			Ti.API.info("hoofhwo!");
-			stateInfoList.push(clubs[i]);
+	
+	for (var i = 0; i <= clubsList.length - 1; i++){
+		if (clubsList[i].state.toUpperCase() == state.toUpperCase()){
+			stateInfoList.push(clubsList[i]);
 		}
 	} 
-
+	
 	data.push(stateInfoList);
 	return data;
 }
+
 
 module.exports = StatesWindow;
