@@ -1,0 +1,23 @@
+{
+	"target": "simulator",
+	"deployType": "development",
+	"deviceFamily": "iphone",
+	"iosSdkPath": "/Users/dombrock/Library/Application Support/Titanium/mobilesdk/osx/3.2.3.GA/iphone",
+	"tiCoreHash": "77157e1ffaec640cf559356a147b6a4c",
+	"modulesHash": "936694c6a2739cfce40bf2916027ba2b",
+	"modulesNativeHash": "804df6181ad21530111350e399b45b87",
+	"gitHash": "b958a70",
+	"name": "UIowa Alumni",
+	"id": "com.iowalum.uiowaalumni",
+	"analytics": true,
+	"publisher": "University of Iowa Alumni Association",
+	"url": "http://www.iowalum.com/",
+	"version": "2.0",
+	"description": "not specified",
+	"copyright": "2013 by University of Iowa Alumni Association",
+	"guid": "2dce4125-1f59-40f1-aeb9-3ed250b36dd9",
+	"skipJSMinification": true,
+	"forceCopy": false,
+	"forceCopyAll": false,
+	"encryptJS": false
+}

@@ -21,6 +21,7 @@
     <prerendered-icon>false</prerendered-icon>
     <statusbar-style>default</statusbar-style>
     <ios>
+        <min-ios-ver>6.1</min-ios-ver>
         <plist>
             <dict>
                 <key>UIStatusBarStyle</key>
@@ -32,7 +33,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-    <guid>9ef3d772-ecbc-4f00-a013-4d4670910b75</guid>
+    <guid>2dce4125-1f59-40f1-aeb9-3ed250b36dd9</guid>
     <iphone>
         <orientations device="iphone">
             <orientation>Ti.UI.PORTRAIT</orientation>
@@ -46,7 +47,7 @@
     </iphone>
     <modules>
         <module platform="iphone" version="1.0">analytics.google</module>
-        <module platform="iphone">ti.map</module>
         <module platform="iphone">ti.eventkit</module>
+        <module platform="iphone">ti.map-stable</module>
     </modules>
 </ti:app>
