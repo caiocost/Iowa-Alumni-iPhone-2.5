@@ -14,6 +14,9 @@
     //Default background properties
     UIColor* bgColor;
     UIImage* bgImage;
+    UIView* hostView;
+    NSInteger curTransformAngle;
+    BOOL forceLayout;
     UIImageView* defaultImageView;
     
     //Keyboard stuff
@@ -48,6 +51,7 @@
     
     BOOL statusBarIsHidden;
     BOOL statusBarVisibilityChanged;
+    NSInteger activeAlertControllerCount;
 }
 
 //UIowaAlumni Support
@@ -55,6 +59,8 @@
 -(void)repositionSubviews;
 -(UIView *)topWindowProxyView;
 -(NSUInteger)supportedOrientationsForAppDelegate;
+-(void)incrementActiveAlertControllerCount;
+-(void)decrementActiveAlertControllerCount;
 -(void)updateStatusBar;
 @property (nonatomic, readonly) BOOL statusBarInitiallyHidden;
 @property (nonatomic, readonly) UIStatusBarStyle defaultStatusBarStyle;

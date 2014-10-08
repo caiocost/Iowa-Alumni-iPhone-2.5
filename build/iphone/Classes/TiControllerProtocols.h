@@ -57,6 +57,7 @@
 @protocol TiControllerContainment <NSObject>
 @required
 -(BOOL)canHostWindows;
+-(UIView *)hostingView;
 //Called by light weight windows from their windowWillOpen, windowWillClose, windowDidOpen, windowDidClose methods
 -(void)willOpenWindow:(id<TiWindowProtocol>)theWindow;
 -(void)willCloseWindow:(id<TiWindowProtocol>)theWindow;

@@ -72,6 +72,7 @@
 	[actionSheet setDestructiveButtonIndex:[TiUtils intValue:[self valueForKey:@"destructive"] def:-1]];
 
 	[self retain];
+	[[[TiApp app] controller] incrementActiveAlertControllerCount];
 
 	if ([TiUtils isIPad])
 	{
@@ -106,6 +107,7 @@
                                    nil];
             [self fireEvent:@"click" withObject:event];
         }
+        [[[TiApp app] controller] decrementActiveAlertControllerCount];
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [self forgetSelf];
         [self release];

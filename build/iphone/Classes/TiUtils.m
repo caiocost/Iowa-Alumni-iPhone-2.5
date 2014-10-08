@@ -106,8 +106,10 @@ bool Base64AllocAndEncodeData(const void *inInputData, size_t inInputDataSize, c
         }
         return 130;
     }
-    else {    
-        if ([TiUtils isRetinaDisplay]) {
+    else {
+        if ([TiUtils isRetinaHDDisplay]) {
+            return 480;
+        } else if ([TiUtils isRetinaDisplay]) {
             return 320;
         }
         return 160;
@@ -116,7 +118,28 @@ bool Base64AllocAndEncodeData(const void *inInputData, size_t inInputDataSize, c
 
 +(BOOL)isRetinaFourInch
 {
-    return ([[UIScreen mainScreen] bounds].size.height == 568);
+    CGSize mainScreenBoundsSize = [[UIScreen mainScreen] bounds].size;
+    if ([TiUtils isIOS8OrGreater]) {
+        return (mainScreenBoundsSize.height == 568 || mainScreenBoundsSize.width == 568);
+    }
+    return (mainScreenBoundsSize.height == 568);
+}
+
++(BOOL)isRetinaiPhone6
+{
+    if ([TiUtils isIOS8OrGreater]) {
+        CGSize mainScreenBoundsSize = [[UIScreen mainScreen] bounds].size;
+        return (mainScreenBoundsSize.height == 667 || mainScreenBoundsSize.width == 667);
+    }
+    return NO;
+}
+
++(BOOL)isRetinaHDDisplay
+{
+    if ([TiUtils isIOS8OrGreater]) {
+        return ([UIScreen mainScreen].scale == 3.0);
+    }
+    return NO;
 }
 
 +(BOOL)isRetinaDisplay
@@ -139,12 +162,7 @@ bool Base64AllocAndEncodeData(const void *inInputData, size_t inInputDataSize, c
 				return NO;
 			}
 		}
-
-		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-		{
-			scale = [[UIScreen mainScreen] scale];
-		}
-
+		scale = [[UIScreen mainScreen] scale];
 	}
 	return scale > 1.0;
 }
@@ -167,6 +185,11 @@ bool Base64AllocAndEncodeData(const void *inInputData, size_t inInputDataSize, c
 +(BOOL)isIOS7OrGreater
 {
     return [UIViewController instancesRespondToSelector:@selector(childViewControllerForStatusBarStyle)];
+}
+
++(BOOL)isIOS8OrGreater
+{
+    return [UIView instancesRespondToSelector:@selector(layoutMarginsDidChange)];
 }
 
 +(BOOL)isIPad
@@ -195,17 +218,6 @@ bool Base64AllocAndEncodeData(const void *inInputData, size_t inInputDataSize, c
 		}
 	}
 	return iphone4;
-}
-
-+(void)queueAnalytics:(NSString*)type name:(NSString*)name data:(NSDictionary*)data
-{
-	NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:
-						   VAL_OR_NSNULL(type),@"type",
-						   VAL_OR_NSNULL(name),@"name",
-						   VAL_OR_NSNULL(data),@"data",
-						   nil];
-	WARN_IF_BACKGROUND_THREAD;	//NSNotificationCenter is not threadsafe!
-	[[NSNotificationCenter defaultCenter] postNotificationName:kTiAnalyticsNotification object:nil userInfo:event];
 }
 
 +(NSString *)UTCDateForDate:(NSDate*)data
@@ -682,8 +694,26 @@ bool Base64AllocAndEncodeData(const void *inInputData, size_t inInputDataSize, c
 
 	NSString *os = [TiUtils isIPad] ? @"~ipad" : @"~iphone";
 
+	if ([TiUtils isRetinaHDDisplay]) {
+		// first try -736h@3x iphone6 Plus specific
+		NSString *testpath = [NSString stringWithFormat:@"%@-736h@3x.%@",partial,ext];
+		if ([fm fileExistsAtPath:testpath]) {
+			return [NSURL fileURLWithPath:testpath];
+		}
+		// second try plain @3x
+		testpath = [NSString stringWithFormat:@"%@@3x.%@",partial,ext];
+		if ([fm fileExistsAtPath:testpath]) {
+			return [NSURL fileURLWithPath:testpath];
+		}
+	}
 	if([TiUtils isRetinaDisplay]){
-		if ([TiUtils isRetinaFourInch]) {
+		if ([TiUtils isRetinaiPhone6]) {
+			// first try -667h@2x iphone6 specific
+			NSString *testpath = [NSString stringWithFormat:@"%@-667h@2x.%@",partial,ext];
+			if ([fm fileExistsAtPath:testpath]) {
+				return [NSURL fileURLWithPath:testpath];
+			}
+		} else if ([TiUtils isRetinaFourInch]) {
 			// first try -568h@2x iphone5 specific
 			NSString *testpath = [NSString stringWithFormat:@"%@-568h@2x.%@",partial,ext];
 			if ([fm fileExistsAtPath:testpath]) {
@@ -1823,6 +1853,44 @@ if ([str isEqualToString:@#orientation]) return (UIDeviceOrientation)orientation
 			NUMBOOL(code==0), @"success",
 			NUMINT(code), @"code",
 			message,@"error", nil];
+}
+
++(NSString*)jsonStringify:(id)value error:(NSError**)error
+{
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:value
+                                                       options:kNilOptions
+                                                         error:error];
+    if (jsonData == nil || [jsonData length] == 0) {
+        return nil;
+    } else {
+        NSString *str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return [str autorelease];
+    }
+
+}
++(id)jsonParse:(NSString*)value error:(NSError**)error;
+{
+    return [NSJSONSerialization JSONObjectWithData: [value dataUsingEncoding: NSUTF8StringEncoding]
+                                            options: NSJSONReadingMutableContainers
+                                              error: error];
+}
++(NSString*)jsonStringify:(id)value
+{
+    NSError *error = nil;
+    NSString *r = [self jsonStringify:value error:&error];
+    if(error != nil) {
+        NSLog(@"Could not stringify JSON. Error: %@", error);
+    }
+    return r;
+}
++(id)jsonParse:(NSString*)value
+{
+    NSError *error = nil;
+    id r = [self jsonParse:value error:&error];
+    if(error != nil) {
+        NSLog(@"Could not parse JSON. Error: %@", error);
+    }
+    return r;
 }
 
 @end

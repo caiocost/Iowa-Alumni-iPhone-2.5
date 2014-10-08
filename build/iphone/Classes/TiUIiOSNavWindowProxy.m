@@ -313,6 +313,7 @@
             }
             [navController.view removeFromSuperview];
             RELEASE_TO_NIL(navController);
+            RELEASE_TO_NIL(rootWindow);
             RELEASE_TO_NIL(current);
         }
     },YES);

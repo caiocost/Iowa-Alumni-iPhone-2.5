@@ -22,7 +22,6 @@
 #import <libkern/OSAtomic.h>
 #import "TiExceptionHandler.h"
 #import "Mimetypes.h"
-
 #ifdef KROLL_COVERAGE
 # import "KrollCoverage.h"
 #endif
@@ -121,7 +120,6 @@ TI_INLINE void waitForMemoryPanicCleared();   //WARNING: This must never be run 
 - (void)setDisableNetworkActivityIndicator:(BOOL)value
 {
 	disableNetworkActivityIndicator = value;
-	[ASIHTTPRequest setShouldUpdateNetworkActivityIndicator: !disableNetworkActivityIndicator];
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(!disableNetworkActivityIndicator && (networkActivityCount > 0))];
 }
 
@@ -180,7 +178,7 @@ TI_INLINE void waitForMemoryPanicCleared();   //WARNING: This must never be run 
 
 - (void)boot
 {
-	DebugLog(@"[INFO] %@/%@ (%s.b958a70)",TI_APPLICATION_NAME,TI_APPLICATION_VERSION,TI_VERSION_STR);
+	DebugLog(@"[INFO] %@/%@ (%s.b54c467)",TI_APPLICATION_NAME,TI_APPLICATION_VERSION,TI_VERSION_STR);
 	
 	sessionId = [[TiUtils createUUID] retain];
 	TITANIUM_VERSION = [[NSString stringWithCString:TI_VERSION_STR encoding:NSUTF8StringEncoding] retain];
@@ -301,7 +299,7 @@ TI_INLINE void waitForMemoryPanicCleared();   //WARNING: This must never be run 
         UIImage * defaultImage = [controller defaultImageForOrientation:
                                   (UIDeviceOrientation)[[UIApplication sharedApplication] statusBarOrientation]
                                                    resultingOrientation:&imageOrientation idiom:&imageIdiom];
-        if([TiUtils isIPad]) {
+        if([TiUtils isIPad] && ![TiUtils isIOS8OrGreater]) {
             CGAffineTransform transform;
             switch ([[UIApplication sharedApplication] statusBarOrientation]) {
                 case UIInterfaceOrientationPortraitUpsideDown:
@@ -339,7 +337,6 @@ TI_INLINE void waitForMemoryPanicCleared();   //WARNING: This must never be run 
 		}
 		[remoteNotification setValue:[aps valueForKey:key] forKey:key];
 	}
-	DebugLog(@"[WARN] Accessing APS keys from toplevel of notification is deprecated");
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions_
@@ -397,7 +394,11 @@ TI_INLINE void waitForMemoryPanicCleared();   //WARNING: This must never be run 
 	[launchOptions removeObjectForKey:UIApplicationLaunchOptionsURLKey];
 	[launchOptions setObject:[url absoluteString] forKey:@"url"];
 	[launchOptions removeObjectForKey:UIApplicationLaunchOptionsSourceApplicationKey];
-	[launchOptions setObject:sourceApplication forKey:@"source"];
+	if(sourceApplication == nil) {
+		[launchOptions setObject:[NSNull null] forKey:@"source"];
+	} else {
+		[launchOptions setObject:sourceApplication forKey:@"source"];
+	}
 	return YES;
 }
 
@@ -434,6 +435,39 @@ TI_INLINE void waitForMemoryPanicCleared();   //WARNING: This must never be run 
 }
 
 #endif
+
+#pragma mark Remote and Local Notifications iOS 8
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTiUserNotificationSettingsNotification object:notificationSettings userInfo:nil];
+}
+
+- (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
+	RELEASE_TO_NIL(localNotification);
+	localNotification = [[TiApp  dictionaryWithLocalNotification:notification withIdentifier:identifier] retain];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kTiLocalNotificationAction object:localNotification userInfo:nil];
+	completionHandler();
+}
+
+- (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    RELEASE_TO_NIL(remoteNotification);
+    [self generateNotification:userInfo];
+    NSMutableDictionary *event = [[NSMutableDictionary alloc] init];
+    event[@"data"] = remoteNotification;
+    if (identifier != nil) {
+        event[@"identifier"] = identifier;
+    }
+    NSString *category = remoteNotification[@"category"];
+    if (category != nil) {
+        event[@"category"] = category;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTiRemoteNotificationAction object:event userInfo:nil];
+    [event autorelease];
+    completionHandler();
+}
+
+#pragma mark -
 
 #pragma mark Helper Methods
 
@@ -756,8 +790,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 {
 	//FunctionName();
 	[[NSNotificationCenter defaultCenter] postNotificationName:kTiPausedNotification object:self];
-	[TiUtils queueAnalytics:@"ti.background" name:@"ti.background" data:nil];
-
+	
 	if (backgroundServices==nil)
 	{
 		return;
@@ -797,8 +830,6 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
     [launchOptions removeObjectForKey:@"source"];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kTiResumeNotification object:self];
-	
-	[TiUtils queueAnalytics:@"ti.foreground" name:@"ti.foreground" data:nil];
     
 	if (backgroundServices==nil)
 	{
@@ -1040,23 +1071,34 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 	[self checkBackgroundServices];
 }
 
-#define NOTNULL(v) ((v==nil) ? (id)[NSNull null] : v)
+#define NOTNIL(v) ((v==nil) ? (id)[NSNull null] : v)
 
++ (NSDictionary *)dictionaryWithLocalNotification:(UILocalNotification *)notification withIdentifier: (NSString *)identifier
+{
+    if (notification == nil) {
+        return nil;
+    }
+    NSMutableDictionary* event = [NSMutableDictionary dictionary];
+    [event setObject:NOTNIL([notification fireDate]) forKey:@"date"];
+    [event setObject:NOTNIL([[notification timeZone] name]) forKey:@"timezone"];
+    [event setObject:NOTNIL([notification alertBody]) forKey:@"alertBody"];
+    [event setObject:NOTNIL([notification alertAction]) forKey:@"alertAction"];
+    [event setObject:NOTNIL([notification alertLaunchImage]) forKey:@"alertLaunchImage"];
+    [event setObject:NOTNIL([notification soundName]) forKey:@"sound"];
+    [event setObject:NUMINT([notification applicationIconBadgeNumber]) forKey:@"badge"];
+    [event setObject:NOTNIL([notification userInfo]) forKey:@"userInfo"];
+	//include category for ios8
+	if ([TiUtils isIOS8OrGreater]) {
+		[event setObject:NOTNIL([notification category]) forKey:@"category"];
+		[event setObject:NOTNIL(identifier) forKey:@"identifier"];
+	}
+	
+	return event;
+    
+}
 + (NSDictionary *)dictionaryWithLocalNotification:(UILocalNotification *)notification
 {
-	if (notification == nil) {
-		return nil;
-	}
-	NSMutableDictionary* event = [NSMutableDictionary dictionary];
-	[event setObject:NOTNULL([notification fireDate]) forKey:@"date"];
-	[event setObject:NOTNULL([[notification timeZone] name]) forKey:@"timezone"];
-	[event setObject:NOTNULL([notification alertBody]) forKey:@"alertBody"];
-	[event setObject:NOTNULL([notification alertAction]) forKey:@"alertAction"];
-	[event setObject:NOTNULL([notification alertLaunchImage]) forKey:@"alertLaunchImage"];
-	[event setObject:NOTNULL([notification soundName]) forKey:@"sound"];
-	[event setObject:NUMINT([notification applicationIconBadgeNumber]) forKey:@"badge"];
-	[event setObject:NOTNULL([notification userInfo]) forKey:@"userInfo"];
-	return [[event copy] autorelease];
+    return [self dictionaryWithLocalNotification: notification withIdentifier: nil];
 }
 
 // Returns an NSDictionary with the properties from tiapp.xml

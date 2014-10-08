@@ -12,6 +12,7 @@
 #import "TiUIiPadPopover.h"
 #import "TiUtils.h"
 #import "TiWindowProxy.h"
+#import "TiApp.h"
 #import <libkern/OSAtomic.h>
 
 #ifdef USE_TI_UITABLEVIEW
@@ -350,6 +351,14 @@ static NSArray* popoverSequence;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePopover:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
         if (contentViewProxy != nil) {
             if ([contentViewProxy isKindOfClass:[TiWindowProxy class]]) {
+                UIView* topWindowView = [[[TiApp app] controller] topWindowProxyView];
+                if ([topWindowView isKindOfClass:[TiUIView class]]) {
+                    TiViewProxy* theProxy = (TiViewProxy*)[(TiUIView*)topWindowView proxy];
+                    if ([theProxy conformsToProtocol:@protocol(TiWindowProtocol)]) {
+                        [(id<TiWindowProtocol>)theProxy resignFocus];
+                    }
+                }
+                [(TiWindowProxy*)contentViewProxy setIsManaged:YES];
                 [(TiWindowProxy*)contentViewProxy open:nil];
                 [(TiWindowProxy*) contentViewProxy gainFocus];
                 [self updatePopoverNow];
@@ -508,6 +517,15 @@ static NSArray* popoverSequence;
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
     if (contentViewProxy != nil) {
         [contentViewProxy windowDidClose];
+        if ([contentViewProxy isKindOfClass:[TiWindowProxy class]]) {
+            UIView* topWindowView = [[[TiApp app] controller] topWindowProxyView];
+            if ([topWindowView isKindOfClass:[TiUIView class]]) {
+                TiViewProxy* theProxy = (TiViewProxy*)[(TiUIView*)topWindowView proxy];
+                if ([theProxy conformsToProtocol:@protocol(TiWindowProtocol)]) {
+                    [(id<TiWindowProtocol>)theProxy gainFocus];
+                }
+            }
+        }
     } else {
         [self windowDidClose];
     }

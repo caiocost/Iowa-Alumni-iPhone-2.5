@@ -19,8 +19,9 @@
 <
 	UINavigationControllerDelegate,
 	UIImagePickerControllerDelegate, 
-	MPMediaPickerControllerDelegate
-	,UIVideoEditorControllerDelegate
+	MPMediaPickerControllerDelegate,
+	UIPopoverControllerDelegate,
+	UIVideoEditorControllerDelegate
 > {
 @private
 	// Camera picker

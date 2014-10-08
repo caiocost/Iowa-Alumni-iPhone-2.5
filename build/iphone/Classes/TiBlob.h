@@ -24,6 +24,7 @@ typedef enum {
 	NSData *data;
 	UIImage *image;
 	NSString *path;
+	BOOL imageLoadAttempted;
 }
 
 /**

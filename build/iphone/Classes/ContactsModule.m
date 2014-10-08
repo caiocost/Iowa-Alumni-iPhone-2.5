@@ -225,10 +225,20 @@ void CMExternalChangeCallback (ABAddressBookRef notifyAddressBook,CFDictionaryRe
 	cancelCallback = [[args objectForKey:@"cancel"] retain];
 	selectedPersonCallback = [[args objectForKey:@"selectedPerson"] retain];
 	selectedPropertyCallback = [[args objectForKey:@"selectedProperty"] retain];
-	
+    
 	picker = [[ABPeoplePickerNavigationController alloc] init];
 	[picker setPeoplePickerDelegate:self];
 	
+    if ([TiUtils isIOS8OrGreater]) {
+        if (selectedPropertyCallback == nil) {
+            [picker setPredicateForSelectionOfProperty:[NSPredicate predicateWithValue:NO]];
+        }
+        
+        if (selectedPersonCallback == nil) {
+            [picker setPredicateForSelectionOfPerson:[NSPredicate predicateWithValue:NO]];
+        }
+    }
+    
 	animated = [TiUtils boolValue:@"animated" properties:args def:YES];
 	
 	NSArray* fields = [args objectForKey:@"fields"];
@@ -523,6 +533,7 @@ MAKE_SYSTEM_PROP(AUTHORIZATION_AUTHORIZED, kABAuthorizationStatusAuthorized);
 	}
 }
 
+//Deprecated in iOS 8
 -(BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
 	if (selectedPersonCallback) {
@@ -538,6 +549,7 @@ MAKE_SYSTEM_PROP(AUTHORIZATION_AUTHORIZED, kABAuthorizationStatusAuthorized);
 	return YES;
 }
 
+//Deprecated in iOS 8
 -(BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
 	if (selectedPropertyCallback) {
@@ -596,6 +608,17 @@ MAKE_SYSTEM_PROP(AUTHORIZATION_AUTHORIZED, kABAuthorizationStatusAuthorized);
 		return NO;
 	}
 	return YES;
+}
+// Called after a person has been selected by the user. New in iOS 8
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker didSelectPerson:(ABRecordRef)person
+{
+    [self peoplePickerNavigationController:peoplePicker shouldContinueAfterSelectingPerson:person];
+}
+
+// Called after a property has been selected by the user. New in iOS 8
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
+{
+    [self peoplePickerNavigationController:peoplePicker shouldContinueAfterSelectingPerson:person property:property identifier:identifier];
 }
 
 @end

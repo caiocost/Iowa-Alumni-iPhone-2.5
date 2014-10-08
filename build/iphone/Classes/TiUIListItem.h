@@ -34,6 +34,7 @@ enum {
 - (BOOL)canApplyDataItem:(NSDictionary *)otherItem;
 - (void)setPosition:(int)position isGrouped:(BOOL)grouped;
 - (void)configureCellBackground;
+- (void) ensureVisibleSelectorWithTableView:(UITableView*)tableView;
 @end
 
 #endif

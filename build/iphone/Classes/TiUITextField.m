@@ -399,7 +399,9 @@
 
 -(void)setBorderStyle_:(id)value
 {
-	[[self textWidgetView] setBorderStyle:[TiUtils intValue:value]];
+	TiThreadPerformOnMainThread(^{
+		[[self textWidgetView] setBorderStyle:[TiUtils intValue:value]];
+	}, NO);
 }
 
 -(void)setClearButtonMode_:(id)value

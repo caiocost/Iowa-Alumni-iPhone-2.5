@@ -147,7 +147,7 @@
 -(void)attachViewToTopContainerController
 {
     UIViewController<TiControllerContainment>* topContainerController = [[[TiApp app] controller] topContainerController];
-    UIView *rootView = [topContainerController view];
+    UIView *rootView = [topContainerController hostingView];
     TiUIView* theView = [self view];
     [rootView addSubview:theView];
     [rootView bringSubviewToFront:theView];
@@ -635,7 +635,7 @@
     BOOL isOpenAnimation = NO;
     UIView* hostingView = nil;
     if (sender == openAnimation) {
-        hostingView = [[[[TiApp app] controller] topContainerController] view];
+        hostingView = [[[[TiApp app] controller] topContainerController] hostingView];
         isOpenAnimation = YES;
     } else {
         hostingView = [[self view] superview];

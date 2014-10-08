@@ -484,6 +484,12 @@ typedef enum
 
 +(UITextAlignment)textAlignmentValue:(id)alignment;
 
++(NSString*)jsonStringify:(id)value;
++(id)jsonParse:(NSString*)value;
+
++(NSString*)jsonStringify:(id)value error:(NSError**)error;
++(id)jsonParse:(NSString*)value error:(NSError**)error;;
+
 /**
  Whether or not the current device orientation is portrait.
  @return _YES_ is the current device orientation is portrait, _NO_ otherwise.
@@ -529,8 +535,6 @@ typedef enum
 
 +(void)applyColor:(TiColor *)color toNavigationController:(UINavigationController *)navController;
 
-+(void)queueAnalytics:(NSString*)type name:(NSString*)name data:(NSDictionary*)data;
-
 /**
  Whether or not the current device interface idiom is iPad.
  @return _YES_ if the current device interface idiom is iPad, _NO_ otherwise.
@@ -562,6 +566,12 @@ typedef enum
 +(BOOL)isIOS7OrGreater;
 
 /**
+ Whether or not the current OS version is equal to or greater than 8.0.
+ @return _YES_ if the current OS version is equal to or greater thann 8.0, _NO_ otherwise.
+ */
++(BOOL)isIOS8OrGreater;
+
+/**
  Whether or not the current device is an iPhone 4.
  @return _YES_ if the current device is an iPhone 4, _NO_ otherwise.
  */
@@ -579,6 +589,17 @@ typedef enum
  */
 +(BOOL)isRetinaFourInch;
 
+/**
+ Whether or not the current device has a 4.7 inch retina display (iPhone6).
+ @return _YES_ if the current device has a 4.7 inch retina display, _NO_ otherwise.
+ */
++(BOOL)isRetinaiPhone6;
+
+/**
+ Whether or not the current device has HD retina display (@3X).
+ @return _YES_ if the current device has HD retina display, _NO_ otherwise.
+ */
++(BOOL)isRetinaHDDisplay;
 +(void)configureController:(id)controller withObject:(id)object;
 
 +(CGRect)frameForController:(id)theController;
