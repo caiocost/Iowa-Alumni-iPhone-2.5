@@ -30,13 +30,13 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2412F467115C296300454E5B /* TiMediaVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2412F465115C296300454E5B /* TiMediaVideoPlayer.m */; };
 		242E8E3111BA39FD0046A0D0 /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
-		EA2FA59E088D44E7A15B53C5 /* libti.map-stable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C43F66B06944A198FB3F8C2 /* libti.map-stable.a */; };
-		A6327151777C4B7695505D37 /* libti.eventkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 388FA1778F58497DBF58D3E5 /* libti.eventkit.a */; };
-		E84231D27E7847D98903162D /* libanalytics.google.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1948952EF1DB40BA85C8030F /* libanalytics.google.a */; };
+		C0A4F5537E0A4A0FB0306177 /* libti.map-stable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBDF324494B4E9992D6F3F2 /* libti.map-stable.a */; };
+		0DF68CF016F741EEA3C98BA9 /* libti.eventkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29949B97F960464A9F1568D6 /* libti.eventkit.a */; };
+		8C0681DEF73F415DBD27FB82 /* libanalytics.google.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960B750E0478493487034395 /* libanalytics.google.a */; };
 		242E8E3211BA39FE0046A0D0 /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
-		26557F945B2B4A0DA168090D /* libti.map-stable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C43F66B06944A198FB3F8C2 /* libti.map-stable.a */; };
-		2DCB420D6CB6465ABD445A8E /* libti.eventkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 388FA1778F58497DBF58D3E5 /* libti.eventkit.a */; };
-		73DC527AA69B4E5FBBF220C7 /* libanalytics.google.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1948952EF1DB40BA85C8030F /* libanalytics.google.a */; };
+		33EE25716CC44B9189FF77AC /* libti.map-stable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBDF324494B4E9992D6F3F2 /* libti.map-stable.a */; };
+		6906C835512443568F7E0434 /* libti.eventkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29949B97F960464A9F1568D6 /* libti.eventkit.a */; };
+		FE5BFEF47B564063AFE6AEF7 /* libanalytics.google.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960B750E0478493487034395 /* libanalytics.google.a */; };
 		242E967711BAD2F20046A0D0 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967411BAD2F20046A0D0 /* AsyncSocket.m */; };
 		242E967811BAD2F20046A0D0 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967611BAD2F20046A0D0 /* AsyncUdpSocket.m */; };
 		242E967911BAD2F20046A0D0 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967411BAD2F20046A0D0 /* AsyncSocket.m */; };
@@ -903,9 +903,9 @@
 		DABB37B412E8CB280026A6EA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24EB0A57111E1BAE001DC2D1 /* libxml2.dylib */; };
 		DABB37B512E8CB280026A6EA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24597034118FF66300519F79 /* StoreKit.framework */; };
 		DABB37B612E8CB280026A6EA /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
-		EBEB89E031EA49568D51EB30 /* libti.map-stable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C43F66B06944A198FB3F8C2 /* libti.map-stable.a */; };
-		06B0935A6020470F993F6641 /* libti.eventkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 388FA1778F58497DBF58D3E5 /* libti.eventkit.a */; };
-		5F7A500694E44D7DBBF82906 /* libanalytics.google.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1948952EF1DB40BA85C8030F /* libanalytics.google.a */; };
+		C60089FF4074432D92E91DDD /* libti.map-stable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBDF324494B4E9992D6F3F2 /* libti.map-stable.a */; };
+		02FE4A7CE2364173A48C7D2E /* libti.eventkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29949B97F960464A9F1568D6 /* libti.eventkit.a */; };
+		857A39E60A8D4FFCBB00FC84 /* libanalytics.google.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960B750E0478493487034395 /* libanalytics.google.a */; };
 		DABB37B712E8CB280026A6EA /* libtiverify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D5C75811E6364F00F097E2 /* libtiverify.a */; };
 		DABDEB08128B5A8F00C85FEA /* AudioStreamerCUR.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9FF582128A1F3600457759 /* AudioStreamerCUR.m */; };
 		DABF3ECF134D210400836137 /* TiBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF3ECE134D210400836137 /* TiBuffer.m */; };
@@ -955,9 +955,9 @@
 		241EAA21118AB3BB0081A5BE /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defines.h; path = Classes/defines.h; sourceTree = SOURCE_ROOT; };
 		241EAEC5118E2BA90081A5BE /* project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		242E8E3011BA39FD0046A0D0 /* libTiCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTiCore.a; path = lib/libTiCore.a; sourceTree = SOURCE_ROOT; };
-		6C43F66B06944A198FB3F8C2 /* libti.map-stable.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.map-stable.a; path = "/Users/schmidt/Iowa-Alumni-iPhone/modules/iphone/ti.map-stable/ios/libti.map-stable.a"; sourceTree = "<absolute>"; };
-		388FA1778F58497DBF58D3E5 /* libti.eventkit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.eventkit.a; path = "/Users/schmidt/Iowa-Alumni-iPhone/modules/iphone/ti.eventkit/0.1/libti.eventkit.a"; sourceTree = "<absolute>"; };
-		1948952EF1DB40BA85C8030F /* libanalytics.google.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libanalytics.google.a; path = "/Users/schmidt/Iowa-Alumni-iPhone/modules/iphone/analytics.google/1.0/libanalytics.google.a"; sourceTree = "<absolute>"; };
+		1DBDF324494B4E9992D6F3F2 /* libti.map-stable.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.map-stable.a; path = "/Users/schmidt/Iowa-Alumni-iPhone/modules/iphone/ti.map-stable/ios/libti.map-stable.a"; sourceTree = "<absolute>"; };
+		29949B97F960464A9F1568D6 /* libti.eventkit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.eventkit.a; path = "/Users/schmidt/Iowa-Alumni-iPhone/modules/iphone/ti.eventkit/0.1/libti.eventkit.a"; sourceTree = "<absolute>"; };
+		960B750E0478493487034395 /* libanalytics.google.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libanalytics.google.a; path = "/Users/schmidt/Iowa-Alumni-iPhone/modules/iphone/analytics.google/1.0/libanalytics.google.a"; sourceTree = "<absolute>"; };
 		242E95C811BAC8B40046A0D0 /* TiDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiDebugger.h; path = Classes/TiDebugger.h; sourceTree = SOURCE_ROOT; };
 		242E967311BAD2F20046A0D0 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = Classes/AsyncSocket.h; sourceTree = SOURCE_ROOT; };
 		242E967411BAD2F20046A0D0 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = Classes/AsyncSocket.m; sourceTree = SOURCE_ROOT; };
@@ -1590,9 +1590,9 @@
 				24EB0A58111E1BAE001DC2D1 /* libxml2.dylib in Frameworks */,
 				24597035118FF66300519F79 /* StoreKit.framework in Frameworks */,
 				242E8E3111BA39FD0046A0D0 /* libTiCore.a in Frameworks */,
-				EA2FA59E088D44E7A15B53C5 /* libti.map-stable.a in Frameworks */,
-				A6327151777C4B7695505D37 /* libti.eventkit.a in Frameworks */,
-				E84231D27E7847D98903162D /* libanalytics.google.a in Frameworks */,
+				C0A4F5537E0A4A0FB0306177 /* libti.map-stable.a in Frameworks */,
+				0DF68CF016F741EEA3C98BA9 /* libti.eventkit.a in Frameworks */,
+				8C0681DEF73F415DBD27FB82 /* libanalytics.google.a in Frameworks */,
 				B606EF60190B42FB00663EFC /* libAPSHTTPClient.a in Frameworks */,
 				242EA11611BD956F0046A0D0 /* ExternalAccessory.framework in Frameworks */,
 				24D5C75911E6364F00F097E2 /* libtiverify.a in Frameworks */,
@@ -1632,9 +1632,9 @@
 				24D8E4AB119B9D8A00F8CAA6 /* libxml2.dylib in Frameworks */,
 				24D8E4AC119B9D8A00F8CAA6 /* StoreKit.framework in Frameworks */,
 				242E8E3211BA39FE0046A0D0 /* libTiCore.a in Frameworks */,
-				26557F945B2B4A0DA168090D /* libti.map-stable.a in Frameworks */,
-				2DCB420D6CB6465ABD445A8E /* libti.eventkit.a in Frameworks */,
-				73DC527AA69B4E5FBBF220C7 /* libanalytics.google.a in Frameworks */,
+				33EE25716CC44B9189FF77AC /* libti.map-stable.a in Frameworks */,
+				6906C835512443568F7E0434 /* libti.eventkit.a in Frameworks */,
+				FE5BFEF47B564063AFE6AEF7 /* libanalytics.google.a in Frameworks */,
 				24D5C75A11E6364F00F097E2 /* libtiverify.a in Frameworks */,
 				DAA4B2AF134E3DBD00AB6011 /* libti_ios_debugger.a in Frameworks */,
 				DADE76D613D65C6F0079FC75 /* libicucore.dylib in Frameworks */,
@@ -1674,9 +1674,9 @@
 				DABB37B412E8CB280026A6EA /* libxml2.dylib in Frameworks */,
 				DABB37B512E8CB280026A6EA /* StoreKit.framework in Frameworks */,
 				DABB37B612E8CB280026A6EA /* libTiCore.a in Frameworks */,
-				EBEB89E031EA49568D51EB30 /* libti.map-stable.a in Frameworks */,
-				06B0935A6020470F993F6641 /* libti.eventkit.a in Frameworks */,
-				5F7A500694E44D7DBBF82906 /* libanalytics.google.a in Frameworks */,
+				C60089FF4074432D92E91DDD /* libti.map-stable.a in Frameworks */,
+				02FE4A7CE2364173A48C7D2E /* libti.eventkit.a in Frameworks */,
+				857A39E60A8D4FFCBB00FC84 /* libanalytics.google.a in Frameworks */,
 				DABB37B712E8CB280026A6EA /* libtiverify.a in Frameworks */,
 				DAA4B2B0134E3DBD00AB6011 /* libti_ios_debugger.a in Frameworks */,
 				DADE76D713D65C7D0079FC75 /* libicucore.dylib in Frameworks */,
@@ -2769,9 +2769,9 @@
 				DAA4B2AD134E3DBD00AB6011 /* libti_ios_debugger.a */,
 				24D5C75811E6364F00F097E2 /* libtiverify.a */,
 				242E8E3011BA39FD0046A0D0 /* libTiCore.a */,
-				6C43F66B06944A198FB3F8C2 /* libti.map-stable.a */,
-				388FA1778F58497DBF58D3E5 /* libti.eventkit.a */,
-				1948952EF1DB40BA85C8030F /* libanalytics.google.a */,
+				1DBDF324494B4E9992D6F3F2 /* libti.map-stable.a */,
+				29949B97F960464A9F1568D6 /* libti.eventkit.a */,
+				960B750E0478493487034395 /* libanalytics.google.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,

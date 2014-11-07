@@ -7,7 +7,12 @@ function  ClubsandWatchesScrollWindow (clubData, clubInfoData, tracker, gameWatc
 	var perviousPage = 0;
 	var masterView = Ti.UI.createView({backgroundColor:"#fff"});
 	var scrollBoxHeight = 60;
-	var windowtitle = clubData[0].state;
+	var windowtitle;
+try{
+windowtitle = clubData[0].state;
+}catch(Exception){
+windowtitle = clubInfoData[0].state;
+}
 	
 	var top = 0;
 

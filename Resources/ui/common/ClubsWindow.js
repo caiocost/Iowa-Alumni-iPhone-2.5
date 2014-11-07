@@ -157,8 +157,8 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	    		//Ti.API.info(e.index);
 				var emailDialog = Ti.UI.createEmailDialog();
 				emailDialog.toRecipients = [clubInfoData[e.source.buttonid].email];
-				var f = Ti.Filesystem.getFile('cricket.wav');
-				emailDialog.addAttachment(f);
+				//var f = Ti.Filesystem.getFile('cricket.wav');
+				//emailDialog.addAttachment(f);
 				emailDialog.open();
 				
 	    		tracker.trackEvent({
