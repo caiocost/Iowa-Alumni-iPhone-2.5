@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/UIImage+Alpha.m \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/UIImage+Alpha.h
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/UIImage+Alpha.m \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/UIImage+Alpha.h

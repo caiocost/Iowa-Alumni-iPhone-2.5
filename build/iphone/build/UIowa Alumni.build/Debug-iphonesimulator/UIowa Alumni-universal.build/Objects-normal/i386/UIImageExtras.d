@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/AFOpenFlow/UIImageExtras.m \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/AFOpenFlow/UIImageExtras.h
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/AFOpenFlow/UIImageExtras.m \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/AFOpenFlow/UIImageExtras.h

@@ -2,34 +2,34 @@ var GetFeed = require('ui/common/GetFeed');
 var DateObject = require('ui/common/DateObject');
 var CachedImageView = require('ui/common/CachedImageView');
 var WebView = require('ui/common/WebView');
+var IOSSetting = require('ui/common/IOSSetting');
+var TableRows = require('ui/common/TableRows');
+var setting = new IOSSetting();
 /*
  * Return a Single Post Area that contains
  * tilte, description, and picture(Not Required)
  */
 function SinglePost (post, tracker, title){
 	
-	
+	var rows = new TableRows();
 	
 	var table = Ti.UI.createTableView({
-		separatorColor: 	'd5d5d5',
+		separatorColor: 	'transparent',
 		backgroundColor: 	'ffffff',
-		height:				'auto',
-		width: 				300,
-		left: 				10,
-		top:				10,
-		bottom:				0,
+		height:				0,
+		width: 				setting.defualtContentWidth(),
+		left: 				setting.defualtLeft(),
+		top:				setting.defualtTop(),
 		padding:			0,
 		borderRadius:		5,  
 		borderColor: 		'#d5d5d5',
 		borderWidth: 		1,
 		scrollable: 		false
 	});
+	
+	
 
-	 var rowText = Ti.UI.createTableViewRow({
-	        height: 120
-	    });
-
-	 rowText.addEventListener('click', function(e) {
+	 table.addEventListener('click', function(e) {
 			new WebView ( post.url);
 			
 			tracker.trackEvent({
@@ -41,14 +41,12 @@ function SinglePost (post, tracker, title){
 			
 	 });
 	 
-	 table.height = rowText.height;
-	var data = [];
-	 data.push(rowText);
-	table.setData(data);
+	
+	
 
 	var row = Ti.UI.createTableViewRow({
 		hasChild: true,
-		height: table.height+15,
+		height: 0,
 		padding: 0,
 		top: 0,
 		bottom: 0,
@@ -61,19 +59,15 @@ function SinglePost (post, tracker, title){
 	row.backgroundSelectedImage = null;
 	row.backgroundFocusImage = null;
 
-	row.add(table);
-		
-		
-		
 		var titleLabel = getTitleLabel(post.title);
-		rowText.add(titleLabel);
+		rows.add(titleLabel);
 		
 		if (post.image != 'NA'){
 			var imageContainer = Ti.UI.createView({
-				width: 			60,
-				height: 		60,
-				right: 			15,
-				top: 			titleLabel.height+20,
+				width: 			setting.postImageWidth(),
+				height: 		setting.postImageHeight(),
+				right: 			setting.defualtRight(),
+				top: 			setting.defualtTop(),
 				borderRadius:	4,
 				borderColor: 	'#d5d5d5',
 				borderWidth: 	1
@@ -88,47 +82,41 @@ function SinglePost (post, tracker, title){
 				height: Ti.UI.FILL,
 				top: 0
 			});
-			
+			var descArea = Ti.UI.createImageView({left: 0, width: setting.defualtContentWidth()});
 			imageContainer.add(imagebox);
-			rowText.add(imageContainer);
+			descArea.add(imageContainer);
 			
-			var desclbl = getDescriptionLabel(post.description, 200);
-			rowText.add(desclbl);
+			var desclbl = getDescriptionLabel(post.description, setting.postWithNoImageWidth());
+			descArea.add(desclbl);
+			rows.add(descArea);
 		}
 		
 		else{
-			var desclbl = getDescriptionLabel(post.description, 280);
-			rowText.add(desclbl);
+			var desclbl = getDescriptionLabel(post.description, setting.postWithImageWidth());
+			rows.add(desclbl);
 		}
-		
-		
-		desclbl.top = titleLabel.height + 10;
-		
-		
+
 		var posted = Ti.UI.createLabel({
 			text: 			(new DateObject(post.pubDate)).prettyDate(),
-			left: 			10,
-			bottom: 		10,
-			height: 		15,
+			left: 			setting.defualtLeft(),
+			bottom: 		setting.defualtBottom(),
+			height: 		setting.postDateHeight(),
 			textAlign: 		'left',
-			width: 			270,
+			width: 			setting.defualtPostContentWidth(),
 			color: 			'#616161',
 			shadowColor: 	'#ffffff',
 	        shadowOpacity: 	0.5,
 	        shadowOffset: 	{x:0, y:1},
-			font: 			{fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+			font: 			{fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 		});
-		posted.top = titleLabel.height + desclbl.height + 10; 
-		rowText.add(posted);
+		//rows.add(posted);
+
 		
-		//row = rowText.height + 30;
+		table.height = titleLabel.height + desclbl.height + posted.height;
+		row.height = table.height + setting.defualtTop();
 		
-		
-		rowText.height = titleLabel.height + desclbl.height + posted.height;
-		table.height = rowText.height;
-		row.height = rowText.height + 10;
-		
-		
+		table.setData(rows.getRows());
+		row.add(table);
 		return row;
 } 
 
@@ -139,12 +127,12 @@ function getTitleLabel(title) {
 	var temp = Ti.UI.createLabel({
 		text: title,
 		height:'auto',
-		width: 250,
+		width: setting.postTitleWidth(),
 		color:'#efc006',
-		font:{fontFamily:'Helvetica',fontSize:16,fontWeight:'bold'}
+		font:{fontFamily:'Helvetica',fontSize:setting.postTitleFontSize(),fontWeight:'bold'}
 	});
 	var view = Ti.UI.createView({
-		width: 250,
+		width: setting.postTitleWidth(),
 		height:'auto'
 	});
 	view.add(temp);
@@ -152,16 +140,15 @@ function getTitleLabel(title) {
 
 	var label = Ti.UI.createLabel({
 		text: title,
-		left: 10,
-		top: 10,
-		bottom:10,
+		left: setting.defualtLeft(),
+		top: setting.defualtTop(),
 		height: view.toImage().height,
 		textAlign:'left',
-		width: 270,
+		width: setting.defualtPostContentWidth(),
 		color:'#303030',
         shadowOpacity:0.5,
         shadowOffset:{x:0, y:1},
-		font:{fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
+		font:{fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'}
 	});
 	
 	return label;
@@ -172,21 +159,20 @@ function getDescriptionLabel(description, descWidth) {
 
 	var text = Ti.UI.createLabel({
 		text: description,
-		left: 10,
-		bottom: 10,
+		left: setting.defualtLeft(),
 		top: 0,
-		height: 70,
+		height: setting.postDescriptionHeight(),
 		textAlign:'left',
 		width: descWidth,
 		color:'#000000',
-		font:{fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 	
 
 	return text;
 
 }
-
+/*
 function getPostImage(image) {
 	var tempimagebox = Ti.UI.createImageView({
 		image: image,
@@ -201,7 +187,7 @@ function getPostImage(image) {
 	var width = tempimagebox.toImage().width;
 	var ratio = width / height;
 
-	var adjustedWidth = Math.floor(60 * ratio);
+	var adjustedWidth = Math.floor(setting.postImageWidth() * ratio);
 
 	var imagebox = Ti.UI.createImageView({
 		image: image,
@@ -212,5 +198,5 @@ function getPostImage(image) {
 
 	return imagebox;
 }
-
+*/
 module.exports = SinglePost;

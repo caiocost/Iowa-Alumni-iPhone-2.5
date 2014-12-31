@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/CADebugMacros.cpp \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/CADebugMacros.h
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/CADebugMacros.cpp \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/CADebugMacros.h

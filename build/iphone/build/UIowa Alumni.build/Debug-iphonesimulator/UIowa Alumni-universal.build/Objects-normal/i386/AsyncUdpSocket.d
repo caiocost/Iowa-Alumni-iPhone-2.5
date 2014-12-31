@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/AsyncUdpSocket.m \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/AsyncUdpSocket.h
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/AsyncUdpSocket.m \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/AsyncUdpSocket.h

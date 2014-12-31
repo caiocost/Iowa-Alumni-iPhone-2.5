@@ -1,8 +1,8 @@
 dependencies: \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/LauncherView.m \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/LauncherView.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/LauncherItem.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/LauncherButton.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/TiBase.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/TiThreading.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/TiPublicAPI.h
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/LauncherView.m \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/LauncherView.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/LauncherItem.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/LauncherButton.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/TiBase.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/TiThreading.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/TiPublicAPI.h

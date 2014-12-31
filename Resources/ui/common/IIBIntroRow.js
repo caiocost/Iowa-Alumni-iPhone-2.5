@@ -1,4 +1,6 @@
 var WebView = require('ui/common/WebView');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 /*
  * Return Iowa Insider Blog's Window Header
  */
@@ -8,9 +10,9 @@ var table = Ti.UI.createTableView({
 		separatorColor: 	'd5d5d5',
 		backgroundColor: 	'ffffff',
 		height:				'auto',
-		width: 				300,
-		left: 				10,
-		top:				10,
+		width: 				setting.defualtContentWidth(),
+		left: 				setting.defualtLeft(),
+		top:				setting.defualtTop(),
 		bottom:				0,
 		padding:			0,
 		borderRadius:		5,
@@ -22,7 +24,7 @@ var table = Ti.UI.createTableView({
 
 	 var rowText = Ti.UI.createTableViewRow({
 	 	selectionStyle: 'none',
-	        height: 50
+	        height: setting.iowaInsiderBlogIntroRowHeight(),
 	    });
 	    
 	 
@@ -33,7 +35,7 @@ var table = Ti.UI.createTableView({
 
 	var row = Ti.UI.createTableViewRow({
 		hasChild: true,
-		height: table.height+10,
+		height: table.height+setting.defualtBottom(),
 		padding: 0,
 		top: 0,
 		bottom: 0,
@@ -68,13 +70,13 @@ function getText (){
 
 	var text = Ti.UI.createLabel({
 		text: 'The official blog of the University of Iowa Alumni Association.',
-		left: 10,
-		top: 10,
+		left: 	setting.defualtLeft(),
+		top:	setting.defualtTop(),
 		textAlign:'left',
-		width: 290,
+		width: setting.defualtPostContentWidth(),
 		//height: 20,
 		color:'#000000',
-		font: {fontFamily:'HelveticaNeueBold',fontSize:12,fontWeight:'bold'}
+		font: {fontFamily:'HelveticaNeueBold',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 	
 

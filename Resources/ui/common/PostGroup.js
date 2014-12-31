@@ -1,3 +1,5 @@
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 /*
  *	Post Table constructor
  *		Creates table for each Row object
@@ -9,9 +11,9 @@ function PostGroup(rows) {
 		separatorColor: 	'd5d5d5',
 		backgroundColor: 	'ffffff',
 		height:				'auto',
-		width: 				300,
-		left: 				10,
-		top:				10,
+		width: 				setting.defualtContentWidth(),
+		left: setting.defualtLeft(),
+		top: setting.defualtTop(),
 		bottom:				0,
 		padding:			0,
 		borderRadius:		5,

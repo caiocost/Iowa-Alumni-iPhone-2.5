@@ -1,1 +1,1 @@
-/Users/schmidt/Iowa-Alumni-iPhone/Resources/ui/common/EventWindow.js
+/Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/Resources/ui/common/EventWindow.js

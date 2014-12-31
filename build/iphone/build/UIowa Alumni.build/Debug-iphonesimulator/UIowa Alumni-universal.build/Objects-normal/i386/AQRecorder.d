@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/AQRecorder.mm \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/AQRecorder.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/CAStreamBasicDescription.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/CADebugMacros.h \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/CAXException.h
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/AQRecorder.mm \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/AQRecorder.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/CAStreamBasicDescription.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/CADebugMacros.h \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/CAXException.h

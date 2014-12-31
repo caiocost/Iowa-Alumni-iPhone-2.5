@@ -1,1 +1,1 @@
-/Users/schmidt/Iowa-Alumni-iPhone/Resources/services/JSON.js
+/Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/Resources/services/JSON.js

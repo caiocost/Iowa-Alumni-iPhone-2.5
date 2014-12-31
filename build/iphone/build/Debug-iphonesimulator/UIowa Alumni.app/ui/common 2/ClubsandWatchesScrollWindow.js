@@ -1,1 +1,1 @@
-/Users/schmidt/Iowa-Alumni-iPhone/Resources/ui/common 2/ClubsandWatchesScrollWindow.js
+/Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/Resources/ui/common 2/ClubsandWatchesScrollWindow.js

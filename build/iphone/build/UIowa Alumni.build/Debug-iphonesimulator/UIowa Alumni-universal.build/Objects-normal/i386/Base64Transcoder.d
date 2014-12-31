@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/Base64Transcoder.c \
-  /Users/schmidt/Iowa-Alumni-iPhone/build/iphone/Classes/Base64Transcoder.h
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/Base64Transcoder.c \
+  /Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/build/iphone/Classes/Base64Transcoder.h

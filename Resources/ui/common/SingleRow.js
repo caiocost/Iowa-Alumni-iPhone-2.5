@@ -3,6 +3,9 @@ var EditText = require('ui/common/EditText');
 var WebView = require('ui/common/WebView');
 var EK = require("ti.eventkit");
 Titanium.event = require('ti.eventkit');
+var IOSSetting = require('ui/common/IOSSetting');
+var TableRows = require('ui/common/TableRows');
+var setting = new IOSSetting();
 /*
  * Return a Single Post Area for Events Window
  * that contains Tilte, Time, and Place
@@ -10,13 +13,14 @@ Titanium.event = require('ti.eventkit');
 
 function SingleRow(post, tracker, title) {
 	var	textWidth = 230;
-   var table = Ti.UI.createTableView({
-		separatorColor: 	'd5d5d5',
+	var rows = new TableRows();
+    var table = Ti.UI.createTableView({
+		separatorColor: 	'transparent',
 		backgroundColor: 	'ffffff',
-		height:				'auto',
-		width: 				300,
-		left: 				10,
-		top:				10,
+		height:				0,
+		width: 				setting.defualtContentWidth(),
+		left: 				setting.defualtLeft(),
+		top:				setting.defualtTop(),
 		bottom:				0,
 		padding:			0,
 		borderRadius:		5,
@@ -25,11 +29,9 @@ function SingleRow(post, tracker, title) {
 		scrollable: 		false
 	});
 
-	 var rowText = Ti.UI.createTableViewRow({
-	        height: 150
-	    });
+	 
 
-	 rowText.addEventListener('click', function(e) {
+	 table.addEventListener('click', function(e) {
 			new WebView (post.url);
 			Ti.API.info(post.url);
 			tracker.trackEvent({
@@ -40,14 +42,10 @@ function SingleRow(post, tracker, title) {
 			});
 			
 	 });
-	table.height = rowText.height;
-	var data = [];
-	 data.push(rowText);
-	table.setData(data);
 
 	var row = Ti.UI.createTableViewRow({
 		hasChild: true,
-		height: table.height+15,
+		height: 0,
 		padding: 0,
 		top: 0,
 		bottom: 0,
@@ -60,21 +58,17 @@ function SingleRow(post, tracker, title) {
 	row.backgroundSelectedImage = null;
 	row.backgroundFocusImage = null;
 
-	row.add(table);
 	var addEventButton = Ti.UI.createButton({
-		width:40,
-		height:40,
+		width:setting.addEventButtonWidth(),
+		height:setting.addEventButtonHeight(),
 		backgroundImage: 'calendar_add.png',
-		bottom: 5,
-  		right: 10,
+		bottom: setting.defualtBottom(),
+  		right: setting.defualtRight(),
   		zIndex: 5,
-		font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 	
-	if (post.startDate != 'NA' && post.endDate != 'NA') {
-		table.add(addEventButton);
-		textWidth = 190;
-	}
+	
 	//Ti.API.info(post.startDate);
 	
 	addEventButton.addEventListener('click', function(e){
@@ -94,36 +88,38 @@ function SingleRow(post, tracker, title) {
 
 
 
-	titlelbl = getTitleLabel(post.title);
-	rowText.add(titlelbl);
+	var titlelbl = getTitleLabel(post.title);
+	rows.add(titlelbl);
+	
+	var timeArea = Ti.UI.createImageView({left: 0, width: setting.defualtContentWidth()});
+	var timebl  = timeLabel();
+	timeArea.add(timebl);
 
-	timebl  = timeLabel();
-	rowText.add(timebl);
+	var inputtimebl  = getTime(post.snl, textWidth);
+	timeArea.add(inputtimebl);
+	rows.add(timeArea);
 
-	inputtimebl  = getTime(post.snl, textWidth);
-	rowText.add(inputtimebl);
+	var placeArea = Ti.UI.createImageView({left: 0, width: setting.defualtContentWidth()});
+	var inputplacebl  = getPlace(post.place, textWidth);
+	placeArea.add(inputplacebl);
 
-	inputplacebl  = getPlace(post.place, textWidth);
-	rowText.add(inputplacebl);
+	var placebl  = placeLabel();
+	placeArea.add(placebl);
+	rows.add(placeArea);
+	
+	if (post.startDate != 'NA' && post.endDate != 'NA') {
+		rows.add(addEventButton);
+		textWidth = 190;
+	}
+	else{
+		addEventButton.height = 0;
+	}
 
-	placebl  = placeLabel();
-	rowText.add(placebl);
-
-
-	timebl.top =   titlelbl.height + 15 ;
-	inputtimebl.top  = timebl.top;
-	placebl.top =  inputplacebl.top = timebl.height  + titlelbl.height + 15 ;
-
-
-
-
-	rowText.height = titlelbl.height + inputtimebl.height + inputplacebl.height +  25;
-	table.height = rowText.height;
-	row.height = table.height + 15;
-
-
-
-
+	table.height = titlelbl.height + timebl.height + placebl.height + addEventButton.height+ setting.defualtTop();
+	row.height = table.height + setting.defualtTop();
+		
+	table.setData(rows.getRows());
+	row.add(table);
 	return row;
 }
 
@@ -139,12 +135,12 @@ function getTitleLabel(title) {
 	var temp = Ti.UI.createLabel({
 		text: title,
 		height:'auto',
-		width: 250,
+		width: setting.postTitleWidth(),
 		color:'#efc006',
-		font:{fontFamily:'Helvetica',fontSize:16,fontWeight:'bold'}
+		font:{fontFamily:'Helvetica',fontSize:setting.postTitleFontSize(),fontWeight:'bold'}
 	});
 	var view = Ti.UI.createView({
-		width: 250,
+		width: setting.postTitleWidth(),
 		height:'auto'
 	});
 	view.add(temp);
@@ -153,16 +149,15 @@ function getTitleLabel(title) {
 
 	var label = Ti.UI.createLabel({
 		text: title,
-		left: 15,
-		top: 10,
-		bottom:10,
+		left: setting.defualtLeft(),
+		top: setting.defualtTop(),
 		height: view.toImage().height,
 		textAlign:'left',
-		width: 270,
+		width: setting.defualtPostContentWidth(),
 		color:'#303030',
         shadowOpacity:0.5,
         shadowOffset:{x:0, y:1},
-		font:{fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
+		font:{fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'}
 	});
 
 	return label;
@@ -219,16 +214,16 @@ function getpubDateLabel(pubDate) {
 
 	var text = Ti.UI.createLabel({
 		text: pubDate,
-		left: 15,
-		top: 10,
+		left: setting.defualtLeft(),
+		top: setting.defualtTop(),
 		textAlign:'left',
-		width: 200,
-		height: 20,
+		width: setting.eventLabelWidth(),
+		height: setting.eventLineHeight(),
 		color:'#5c4e1a',
 		shadowColor:'#f0d87f',
         shadowOpacity:0.5,
         shadowOffset:{x:0, y:1},
-		font:{fontFamily:'HelveticaNeue-CondensedBold',fontSize:12,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-CondensedBold',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 
 	return text;
@@ -239,13 +234,13 @@ function timeLabel (){
 
 	var text = Ti.UI.createLabel({
 		text: 'Time: ',
-		left: 15,
+		left: setting.defualtLeft(),
 		top: 0,
 		textAlign:'left',
-		width: 200,
-		height: 20,
+		width: setting.eventLabelWidth(),
+		height: setting.eventLineHeight(),
 		color:'#000000',
-		font:{fontFamily:'HelveticaNeue-Bold',fontSize:12,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Bold',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 	this.postheight += text.toImage().height;
 
@@ -257,13 +252,13 @@ function getTime (snl, textWidth){
 
 	var text = Ti.UI.createLabel({
 		text: (new EditText (snl)).adjustedText(),
-		left: 55,
+		left: setting.eventInputLeft(),
 		top: 0,
 		textAlign:'left',
-		width: textWidth,
-		height: 20,
+		width: setting.eventLabelWidth(),
+		height: setting.eventLineHeight(),
 		color:'#000000',
-		font:{fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 
 	return text;
@@ -274,14 +269,13 @@ function getPlace (place, textWidth){
 	var text = Ti.UI.createLabel({
 
 		text: (new EditText (place)).adjustedText(),
-		left: 55,
-		bottom: 10,
+		left: setting.eventInputLeft(),
 		top:0,
-		height: 20,
+		height: setting.eventLineHeight(),
 		textAlign:'left',
-		width: textWidth,
+		width: setting.eventLabelWidth(),
 		color:'#000000',
-		font:{fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Light',fontSize: setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 
 	return text;
@@ -292,13 +286,13 @@ function placeLabel (){
 
 	var text = Ti.UI.createLabel({
 		text: 'Place: ',
-		left: 15,
+		left: setting.defualtLeft(),
 		top: 0,
 		textAlign:'left',
-		width: 200,
-		height: 20,
+		width: setting.eventLabelWidth(),
+		height: setting.eventLineHeight(),
 		color:'#000000',
-		font:{fontFamily:'HelveticaNeue-Bold',fontSize:12,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Bold',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 	this.postheight += text.toImage().height;
 

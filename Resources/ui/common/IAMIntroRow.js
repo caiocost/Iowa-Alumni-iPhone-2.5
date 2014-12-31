@@ -1,4 +1,6 @@
 var WebView = require('ui/common/WebView');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 /*
  * Return Iowa Magazine's Window Header
  */
@@ -8,9 +10,9 @@ var table = Ti.UI.createTableView({
 		separatorColor: 	'd5d5d5',
 		backgroundColor: 	'ffffff',
 		height:				'auto',
-		width: 				300,
-		left: 				10,
-		top:				10,
+		width: 				setting.defualtContentWidth(),
+		left: 				setting.defualtLeft(),
+		top:				setting.defualtTop(),
 		bottom:				0,
 		padding:			0,
 		borderRadius:		5,
@@ -21,17 +23,18 @@ var table = Ti.UI.createTableView({
 
 	 var rowText = Ti.UI.createTableViewRow({
 	 	selectionStyle: 'none',
-	        height: 80
+	        height: setting.iowaMagazineIntroRowHeight()
 	       
 	    });
 	    
 	    
 	 var image = Ti.UI.createImageView({
 	  image:    'http://www.iowalum.com/magazine/new/images/magfan.jpg',
-	  top:   10,
-	  left: 200,
-	  width: 80,
-	  height: 55
+	  top:    setting.defualtTop(),
+	  //left: setting.iowaMagazineIntroRowImageLeft(),
+	  right: setting.defualtRight(),
+	  width: setting.iowaMagazineIntroRowImageWidth(),
+	  height: setting.iowaMagazineIntroRowImageHeight()
 	});
 	
 	    
@@ -43,7 +46,7 @@ var table = Ti.UI.createTableView({
 
 	var row = Ti.UI.createTableViewRow({
 		hasChild: true,
-		height: table.height+10,
+		height: table.height+setting.defualtBottom(),
 		padding: 0,
 		top: 0,
 		bottom: 0,
@@ -80,13 +83,13 @@ function getText (){
 
 	var text = Ti.UI.createLabel({
 		text: 'Our award winning bimonthly magazine published by the University of Iowa Alumni Association. ',
-		left: 10,
-		top: 10,
+		left: 	setting.defualtLeft(),
+		top:	setting.defualtTop(),
 		textAlign:'left',
-		width: 200,
+		width: setting.iowaMagazineIntroRowTextWidth(),
 		//height: 20,
 		color:'#000000',
-		font: {fontFamily:'HelveticaNeueBold',fontSize:12,fontWeight:'bold'}
+		font: {fontFamily:'HelveticaNeueBold',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 	
 

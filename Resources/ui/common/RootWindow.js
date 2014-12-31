@@ -10,6 +10,8 @@ var FormatDate = require('ui/common/FormatDate');
 var StaticAd = require('ui/common/StaticAd');
 var WebView = require('ui/common/WebView');
 var Feed = require('ui/common/Feed');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 
 /*
  * Home Window
@@ -84,10 +86,10 @@ function RootWindow(title, tracker) {
 	//----------------------------------------------------------------------------------------	
 		var introLabel = Ti.UI.createLabel({
 			text: "No matter how many years or miles may separate you from the campus, the UI Alumni Association can help you feel part of the life of the University of Iowa.",
-			width: 300,
-			top: 10,
-			left: 10,
-			font: {fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+			width: setting.defualtContentWidth(),
+			top: setting.defualtTop(),
+			left: setting.defualtLeft(),
+			font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 		});
 		
 		var row = Ti.UI.createTableViewRow();
@@ -105,10 +107,10 @@ function RootWindow(title, tracker) {
 		for (var i = 0; i < alerts.length; i++){
 			var headerLabel = Ti.UI.createLabel({
 				text: alerts[i].header,
-				width: 300,
-				top: 10,
-				left: 10,
-				font:{fontFamily:'Helvetica-Bold',fontSize:20,fontWeight:'normal'}
+				width: setting.defualtContentWidth(),
+				top: setting.defualtTop(),
+				left: setting.defualtLeft(),
+				font:{fontFamily:'Helvetica-Bold',fontSize:setting.sectionHeaderFontSize(),fontWeight:'normal'}
 			});
 			
 			var row = Ti.UI.createTableViewRow();
@@ -127,10 +129,10 @@ function RootWindow(title, tracker) {
 		if(events.length > 0){
 			var eventHeaderLabel = Ti.UI.createLabel({
 				text: "Today's Events",
-				width: 300,
-				top: 10,
-				left: 10,
-				font:{fontFamily:'Helvetica-Bold',fontSize:20,fontWeight:'normal'}
+				width: setting.defualtContentWidth(),
+				top: setting.defualtTop(),
+				left: setting.defualtLeft(),
+				font:{fontFamily:'Helvetica-Bold',fontSize:setting.sectionHeaderFontSize(),fontWeight:'normal'}
 			});
 			
 			var row = Ti.UI.createTableViewRow();
@@ -148,10 +150,10 @@ function RootWindow(title, tracker) {
 	//-----------------------------------------------------------------------------------------
 		var magazineHeaderLabel = Ti.UI.createLabel({
 			text: "Article of the Week",
-			width: 300,
-			top: 10,
-			left: 10,
-			font:{fontFamily:'Helvetica-Bold',fontSize:20,fontWeight:'normal'}
+			width: setting.defualtContentWidth(),
+			top: setting.defualtTop(),
+			left: setting.defualtLeft(),
+			font:{fontFamily:'Helvetica-Bold',fontSize:setting.sectionHeaderFontSize(),fontWeight:'normal'}
 		});
 		
 		var row = Ti.UI.createTableViewRow();
@@ -166,10 +168,10 @@ function RootWindow(title, tracker) {
 	//----------------------------------------------------------------------------	
 		var iowaInsiderLabel = Ti.UI.createLabel({
 			text: "Iowa Insider",
-			width: 300,
-			top: 10,
-			left: 10,
-			font:{fontFamily:'Helvetica-Bold',fontSize:20,fontWeight:'normal'}
+			width: setting.defualtContentWidth(),
+			top: setting.defualtTop(),
+			left: setting.defualtLeft(),
+			font:{fontFamily:'Helvetica-Bold',fontSize:setting.sectionHeaderFontSize(),fontWeight:'normal'}
 		});
 		
 		

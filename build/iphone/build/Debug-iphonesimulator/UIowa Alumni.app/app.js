@@ -1,1 +1,1 @@
-/Users/schmidt/Iowa-Alumni-iPhone/Resources/app.js
+/Users/charlesokpala/Documents/Iowa-Alumni-iPhone-2.5/Resources/app.js
