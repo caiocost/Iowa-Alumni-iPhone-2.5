@@ -6,6 +6,9 @@ var StaticAd = require('ui/common/StaticAd');
 var Feed = require('ui/common/Feed');
 var  GameWatchWindow = require('ui/common/GameWatchWindow');
 var ClubsWindow = require('ui/common/ClubsWindow');
+var IOSSetting = require('ui/common/IOSSetting');
+var TableRows = require('ui/common/TableRows');
+var setting = new IOSSetting();
 /*
  * Root Window for Clubs and Gamewatches
  */
@@ -14,35 +17,47 @@ function StatesWindow(title, tracker){
 	tracker.trackScreen(title);
 	var Feeds = new Feed();
 	var masterView = Ti.UI.createView();
+	
+	var rows = new TableRows();
+	
+	var mainTable = Ti.UI.createTableView({
+		separatorColor: 	'transparent',
+		backgroundColor: 	'transparent',
+		height:				'auto',
+		width: 				setting.platformWidth(),
+		left: 				0,
+		top:				0,
+		bottom:				0,
+		padding:			0
+	});
+
 
 	var introLabel = Ti.UI.createLabel({
 			 text: 'Want to connect with fellow UI grads, need a place to watch the next game with fellow Hawkeye fans? IOWA clubs have you covered—find a location near you!',
 			 textAlign: 'left',
-			 left: 10,
-			 width: 300,
-			 top: 10,
-			font: {fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+			 left: setting.defualtLeft(),
+			 width: setting.defualtContentWidth(),
+			 top: setting.defualtTop(),
+			font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 
 		});
-	masterView.add(introLabel);		
+	rows.add(introLabel);	
+	
+	var people = Ti.UI.createImageView({
+	  image:    'clubsPeople.png',
+	  left: setting.defualtLeft(),
+	  width:  setting.defualtContentWidth(),
+	});
+
+	rows.add(people);
+	
 
 	var table = Ti.UI.createTableView({
 		height: 'auto',
 		left: 0,
 		width: Ti.Platform.displayCaps.platformWidth,
-		bottom: 70,
-		top: 145
 	});
-
-	var people = Ti.UI.createImageView({
-	  image:    'clubsPeople.png',
-	  left: 10,
-	  width:  Ti.Platform.displayCaps.platformWidth - 20,
-	  top:   85
-	});
-
-	masterView.add(people);
-
+	
 	var clubs = new GetFeed(Feeds.clubsFeed());
 	var gameWatches = new GetFeed(Feeds.gameWatchFeed());
 	var data = [];
@@ -52,21 +67,21 @@ function StatesWindow(title, tracker){
 		if (rowCounter % 2 == 0){
 			    var row = Ti.UI.createTableViewRow({
 			    	text: clubs[i].state,
-			        height: 50
+			        height: setting.stateListRowHeight()
 			    });
 		  }
 		  else{
 		  		var row = Ti.UI.createTableViewRow({
 			    	text: clubs[i].state,
 			    	backgroundColor:'#cccccc',
-			        height: 50
+			        height: setting.stateListRowHeight()
 			    });
 		  }
 
 		var label = Ti.UI.createLabel({
 			 text: clubs[i].state.toUpperCase(),
 			 textAlign: 'center',
-			 font: {fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
+			 font: {fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'}
 
 		});
 
@@ -77,7 +92,7 @@ function StatesWindow(title, tracker){
 	};
 
 	table.setData(data);
-	masterView.add(table);
+	rows.add(table);
 	table.addEventListener('click', function(e){
 		var stateClubs = getStateList(gameWatches, clubs, e.row.text);
 		var view;
@@ -100,6 +115,8 @@ function StatesWindow(title, tracker){
 
 	var ad = new StaticAd(11,395, tracker, title);
 	masterView.add(ad);
+	mainTable.setData(rows.getRows());
+	masterView.add(mainTable);
 
 	var self = new ApplicationWindow(title, masterView);
 	return self;

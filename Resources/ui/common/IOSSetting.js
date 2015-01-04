@@ -156,8 +156,43 @@ function IOSSetting(){
 	};
 	
 	/* Member Card*/
+	IOSSetting.prototype.memberCardPasswordTextFieldWidth = function(){
+		return this.ratioCalculation(140,1.5);
+	};
 	
+	IOSSetting.prototype.memberCardPasswordTextFieldHeight = function(){
+		return this.ratioCalculation(30,1.5);
+	};
+	IOSSetting.prototype.memberCardLoginButtonWidth = function(){
+		return this.ratioCalculation(50,1.5);
+	};
 	
+	IOSSetting.prototype.memberCardLoginButtonHeight = function(){
+		return this.ratioCalculation(25,1.5);
+	};
+	
+	IOSSetting.prototype.memberCardThawkWidth = function(){
+		return this.ratioCalculation(200,1.5);
+	};
+	
+	IOSSetting.prototype.memberCardThawkHeight = function(){
+		return this.ratioCalculation(127,1.5);
+	};
+	
+	IOSSetting.prototype.memberCardImageWidth = function(){
+		return this.ratioCalculation(320,1.5);
+	};
+	
+	IOSSetting.prototype.memberCardImageHeight = function(){
+		return this.ratioCalculation(420,1.5);
+	};
+	
+	/*
+	 * State List
+	 */
+	IOSSetting.prototype.stateListRowHeight = function(){
+		return this.ratioCalculation(50,1.5);
+	};
 	
 }
 
