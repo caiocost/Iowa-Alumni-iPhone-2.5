@@ -2,7 +2,7 @@ function TableRows (){
 	var rows = [];
 	
 	TableRows.prototype.add = function(object){
-		var row = Ti.UI.createTableViewRow({});//selectionStyle: 'none'
+		var row = Ti.UI.createTableViewRow({selectionStyle: 'none'});//
 		row.add(object);
 		rows.push(row);
 	};

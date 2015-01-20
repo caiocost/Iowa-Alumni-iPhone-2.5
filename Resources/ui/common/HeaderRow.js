@@ -1,6 +1,8 @@
 var DateObject = require('ui/common/DateObject');
 var EditText = require('ui/common/EditText');
 var WebView = require('ui/common/WebView');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 /*
  * Event Date Header Object
  * Essential attributes
@@ -12,9 +14,9 @@ function HeaderRow(post, tracker, title) {
 		separatorColor: 	'e2e2e2',
 		backgroundColor: 	'e2e2e2',
 		height:				'auto',
-		width: 				300,
-		left: 				10,
-		top:				10,
+		width: 				setting.defualtContentWidth(),
+		left: 				setting.defualtLeft(),
+		top:				setting.defualtTop(),
 		bottom:				0,
 		padding:			0,
 		scrollable: 		false
@@ -23,7 +25,7 @@ function HeaderRow(post, tracker, title) {
 	 var rowText = Ti.UI.createTableViewRow({
 	 		backgroundImage: 'gold.png', 
 	    	text: "hello",
-	        height: 50,
+	        height: setting.headerRowHeight(),
 	        selectedBackgroundImage: 'blue.png'
 	        
 	    });
@@ -44,7 +46,7 @@ function HeaderRow(post, tracker, title) {
 
 	var row = Ti.UI.createTableViewRow({
 		hasChild: true,
-		height: table.height + 8,
+		height: table.height + setting.defualtTop(),
 		padding: 0,
 		top: 0,
 		bottom: 0,
@@ -74,13 +76,14 @@ function HeaderRow(post, tracker, title) {
 function getpubDateLabel(pubDate) {
 
 	var text = Ti.UI.createLabel({
-		text: pubDate,		left: 15,
-		bottom: 15,
+		text: pubDate,		
+		left: setting.defualtLeft(),
+		bottom: setting.defualtBottom(),
 		textAlign:'left',
-		width: 200,
-		height: 25,
+		width: setting.defualtPostContentWidth(),
+		height: setting.headerDateLabelHeight(),
 		color:'#5c4e1a',
-		font:{fontFamily:'Helvetica-Bold',fontSize:20,fontWeight:'normal'}
+		font:{fontFamily:'Helvetica-Bold',fontSize:setting.sectionHeaderFontSize(),fontWeight:'normal'}
 	});
 
 	return text;

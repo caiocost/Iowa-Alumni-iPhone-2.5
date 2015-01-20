@@ -57,6 +57,10 @@ function IOSSetting(){
 		return Ti.Platform.displayCaps.platformWidth;
 	};
 	
+	IOSSetting.prototype.platformHeight = function(){
+		return Ti.Platform.displayCaps.platformHeight;
+	};
+	
 	/* Static Ad Design */
 	
 	IOSSetting.prototype.staticAdHeight = function(){
@@ -194,6 +198,52 @@ function IOSSetting(){
 		return this.ratioCalculation(50,1.5);
 	};
 	
+	/*
+	 * Event Header banner
+	 */
+	IOSSetting.prototype.headerRowHeight = function(){
+		return this.ratioCalculation(50,2);
+	};
+	
+	IOSSetting.prototype.headerDateLabelHeight = function(){
+		return this.ratioCalculation(25,2);
+	};
+	
+	/*
+	 * National Benefits banner
+	 */
+	IOSSetting.prototype.nationalBenefitsHeaderHeight = function(){
+		return this.ratioCalculation(90,2);
+	};
+	
+	IOSSetting.prototype.nationalBenefitsHeaderWidth = function(){
+		return Ti.Platform.displayCaps.platformWidth - 4;
+	};
+	
+	IOSSetting.prototype.nationalBenefitsHoverTableTop = function(){
+		return this.nationalBenefitsHeaderHeight() * 0.75;
+	};
+	
+	IOSSetting.prototype.nationalBenefitsLinkTop = function(){
+		return this.ratioCalculation(50,2);
+	};
+	
+	/*
+	 * Home Image Slider
+	 * 
+	 */
+	
+	IOSSetting.prototype.homeImageSliderContainerHeight = function(){
+		return this.ratioCalculation(250,1.5);
+	};
+	
+	IOSSetting.prototype.homeImageSliderImageBoxHeight = function(){
+		return this.ratioCalculation(250,1.5);
+	};
+	
+	IOSSetting.prototype.homeImageSliderImageBoxTop = function(){
+		return this.ratioCalculation(30,1.5);
+	};
 }
 
 module.exports = IOSSetting;

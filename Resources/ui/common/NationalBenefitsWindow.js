@@ -3,6 +3,9 @@ var ApplicationWindow = require('ui/common/ApplicationWindow');
 var GetFeed = require('ui/common/GetFeed');
 var WebView = require('ui/common/WebView');
 var Feed = require('ui/common/Feed');
+var IOSSetting = require('ui/common/IOSSetting');
+var TableRows = require('ui/common/TableRows');
+var setting = new IOSSetting();
 
 function NationalBenefitsWindow(title, tracker){
 	tracker.trackScreen(title);
@@ -10,18 +13,18 @@ function NationalBenefitsWindow(title, tracker){
 	var masterView = Ti.UI.createView();
 	var textView = Ti.UI.createView({
 		backgroundImage:	'gray-broder.png',
-		height:				90,
-		width:				316,
+		height:				setting.nationalBenefitsHeaderHeight(),
+		width:				setting.nationalBenefitsHeaderWidth(),
 		top:				0,
 		left:				2,
 	});
 	var introLabel = Ti.UI.createLabel({
 			 text: ('As a UIAA member, you gain access to a variety of exclusive benefits that show our appreciation for your support of the UIAA.'),
 			 textAlign: 'left',
-			 left: 10,
-			 width: 300,
-			 top: 10,
-			font: {fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+			 left: setting.defualtLeft(),
+			 width: setting.defualtContentWidth(),
+			 top: setting.defualtTop(),
+			font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 			        
 		});
 	textView.add(introLabel);	
@@ -30,16 +33,16 @@ function NationalBenefitsWindow(title, tracker){
 		height: 'auto',
 		left: 0,
 		width: Ti.Platform.displayCaps.platformWidth,
-		top: 70
+		top: setting.nationalBenefitsHoverTableTop()
 	});
 	
 	var linkLabel = Ti.UI.createLabel({
 			 text: 'IC benefits',
 			 //textAlign: 'left',
-			 left: 250,
-			 top: 50,
+			 right: 2,
+			 top: setting.nationalBenefitsLinkTop(),
 			 color: 'blue',
-			font: {fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+			font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 			        
 		});
 		

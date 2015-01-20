@@ -2,33 +2,61 @@ var ApplicationWindow = require('ui/common/ApplicationWindow');
 var WebView = require('ui/common/WebView');
 var SocialMediaIcons = require('ui/common/SocialMediaIcons');
 var StaticAd = require('ui/common/StaticAd');
-
+var IOSSetting = require('ui/common/IOSSetting');
+var TableRows = require('ui/common/TableRows');
+var setting = new IOSSetting();
 
 function ContactUsWindow(title, tracker) {
 	
+	var mainTable = Ti.UI.createTableView({
+		separatorColor: 	'transparent',
+		backgroundColor: 	'transparent',
+		height:				'auto',
+		width: 				setting.platformWidth(),
+		left: 				0,
+		top:				0,
+		bottom:				0,
+		padding:			0
+	});
+	
+	var contactTable = Ti.UI.createTableView({
+		separatorColor: 	'transparent',
+		backgroundColor: 	'transparent',
+		height:				'auto',
+		width: 				setting.defualtContentWidth(),
+		left: 				0,
+		top:				0,
+		bottom:				0,
+		padding:			0
+	});
+	
+	
+	var mainRows = new TableRows();
+	var contactRows = new TableRows();
 	tracker.trackScreen(title);
 	//The Different Views
 	var contactView = Ti.UI.createView({
 		separatorColor: 	'd5d5d5',
 		backgroundColor: 	'ffffff',
 		height:				160,
-		width: 				300,
-		left: 				10,
-		top:				10,
+		width: 				setting.defualtContentWidth(),
+		left: 				setting.defualtLeft(),
+		top:				setting.defualtTop(),
 		bottom:				0,
 		padding:			0,
 		borderRadius:		5,
 		borderColor: 		'#d5d5d5',
 		borderWidth: 		1
 	});
+	mainRows.add(contactView);
 	
 	var socialMediaView = Ti.UI.createView({
 		separatorColor: 	'd5d5d5',
 		backgroundColor: 	'ffffff',
 		height:				160,
-		width: 				300,
-		left: 				10,
-		top:				180,
+		width: 				setting.defualtContentWidth(),
+		left: 				setting.defualtLeft(),
+		top:				setting.defualtTop(),
 		bottom:				0,
 		padding:			0,
 		borderRadius:		5,
@@ -36,6 +64,8 @@ function ContactUsWindow(title, tracker) {
 		borderWidth: 		1
 		
 	});
+	mainRows.add(socialMediaView);
+	mainTable.setData(mainRows.getRows());
 		
 	var scrollMainView = Ti.UI.createView({
 	  top: 0,
@@ -53,13 +83,14 @@ function ContactUsWindow(title, tracker) {
 	
 	var contactLabel = Ti.UI.createLabel({
 		text: "Contact Us",
-		top: 10
+		top: setting.defualtTop()
 	});
-	
+	contactRows.add(contactLabel); 
 	var levittLabel = Ti.UI.createLabel({
 		text: "Levitt Center",
-		top: 30
+		top: setting.defualtTop()
 	});
+	contactRows.add(contactLabel); 
 	textCurrentTop = levittLabel.top;
 	
 	var levittline = Ti.UI.createView({
@@ -120,7 +151,7 @@ function ContactUsWindow(title, tracker) {
 	// Social Network View
 	var socialMdeiaLabel = Ti.UI.createLabel({
 		text: "Social Networks",
-		left: 10,
+		left: setting.defualtLeft(),
 		top: 10
 	});
 	
@@ -164,7 +195,7 @@ function ContactUsWindow(title, tracker) {
 	
 	//Left 
 	socialMdeiaLabel.left =  contactLabel.left =
-	  emailline.left =  levittline.left =  emailLabel.left = phoneLabel.left = addressLabel.left =  levittLabel.left = 10;
+	  emailline.left =  levittline.left =  emailLabel.left = phoneLabel.left = addressLabel.left =  levittLabel.left = setting.defualtLeft();
 	
 	
 	//------------------------------------------   Contact View's Objects  ---------------------------------------------------------\\
@@ -177,7 +208,7 @@ function ContactUsWindow(title, tracker) {
 		socialMediaView.add(socialMdeiaLabel);socialMediaView.add(facebookimage); socialMediaView.add(twitterimage);socialMediaView.add(foursquareimage);socialMediaView.add(linkedInimage);
 	socialMediaView.add(pinterestimage);socialMediaView.add(instagramimage); 
 	//------------------------------------------   Views    ---------------------------------------------------------------------------\\	
-	scrollMainView.add(socialMediaView);	scrollMainView.add(contactView);	scrollMainView.add(ad);
+	scrollMainView.add(mainTable); scrollMainView.add(ad);
 	
 	
 	

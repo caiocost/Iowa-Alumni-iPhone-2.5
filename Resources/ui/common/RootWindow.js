@@ -23,7 +23,7 @@ function RootWindow(title, tracker) {
 	var Feeds = new Feed();
 	var tableView = new PostTable();
 	tableView.top = 0;
-	tableView.bottom = 70;
+	tableView.bottom = setting.staticAdHeight();
 	tableView.selectionStyle ='none';
 	
 	// PostTable Event Listeners

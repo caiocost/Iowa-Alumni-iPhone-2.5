@@ -1,15 +1,17 @@
 var GetFeed = require('ui/common/GetFeed');
 var FormatDate = require('ui/common/FormatDate');
 var Feed = require('ui/common/Feed');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 
 function HomeImageSlider(){
 	var Feeds = new Feed();
 	var container =  Titanium.UI.createView({
 			backgroundColor: 'transparent',
-				height:			250,
-				width: 			300,
-				left: 			10,
-				top:			10,
+				height:			setting.homeImageSliderContainerHeight(),
+				width: setting.defualtContentWidth(),
+				top: setting.defualtTop(),
+				left: setting.defualtLeft(),
 				bottom:			0,
 				padding:		0,
 				borderRadius:	5
@@ -22,10 +24,10 @@ function HomeImageSlider(){
 		var imageArray = new GetFeed (Feeds.sliderImagesFeed());
 		var imagebox = Ti.UI.createImageView({
 			image: imageArray[0].url,
-			width: 300,
-			height: 250,
+			width: setting.defualtContentWidth(),
+			height: setting.homeImageSliderImageBoxHeight(),
 			hires: true,
-			top: 30
+			top: setting.homeImageSliderImageBoxTop()
 		});
 		
 		
@@ -41,14 +43,14 @@ function HomeImageSlider(){
 			}
 		
 		var overlay = Ti.UI.createImageView({
-			width: 300,
+			width: setting.defualtContentWidth(),
 			height: 40,
 			hires: true,
 			top: 1,
 			image: 'gold.png'
 		});
 		var shadow = Ti.UI.createImageView({
-			width: 300,
+			width: setting.defualtContentWidth(),
 			height: 100,
 			hires: true,
 			bottom: 65,
@@ -76,7 +78,7 @@ function HomeImageSlider(){
 		var view = Ti.UI.createView({
 			backgroundColor: '#0c0c0c',
 			backgroundImage: 'dark.jpg',
-			width: 300,
+			width: setting.defualtContentWidth(),
 			height: 75,
 			bottom: 0
 		});
