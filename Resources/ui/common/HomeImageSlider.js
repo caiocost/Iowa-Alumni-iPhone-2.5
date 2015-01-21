@@ -2,13 +2,14 @@ var GetFeed = require('ui/common/GetFeed');
 var FormatDate = require('ui/common/FormatDate');
 var Feed = require('ui/common/Feed');
 var IOSSetting = require('ui/common/IOSSetting');
+var TableRows = require('ui/common/TableRows');
 var setting = new IOSSetting();
 
 function HomeImageSlider(){
 	var Feeds = new Feed();
 	var container =  Titanium.UI.createView({
 			backgroundColor: 'transparent',
-				height:			setting.homeImageSliderContainerHeight(),
+				height:			setting.featureRowContainerHeight(),
 				width: setting.defualtContentWidth(),
 				top: setting.defualtTop(),
 				left: setting.defualtLeft(),
@@ -25,9 +26,9 @@ function HomeImageSlider(){
 		var imagebox = Ti.UI.createImageView({
 			image: imageArray[0].url,
 			width: setting.defualtContentWidth(),
-			height: setting.homeImageSliderImageBoxHeight(),
+			height: setting.featureRowImageBoxHeight(),
 			hires: true,
-			top: setting.homeImageSliderImageBoxTop()
+			top: setting.featureRowImageBoxTop()
 		});
 		
 		
@@ -44,16 +45,16 @@ function HomeImageSlider(){
 		
 		var overlay = Ti.UI.createImageView({
 			width: setting.defualtContentWidth(),
-			height: 40,
+			height: setting.featureRowOverlayHeight(),
 			hires: true,
 			top: 1,
 			image: 'gold.png'
 		});
 		var shadow = Ti.UI.createImageView({
 			width: setting.defualtContentWidth(),
-			height: 100,
+			height: setting.featureRowShadowHeight(),
 			hires: true,
-			bottom: 65,
+			bottom: setting.featureRowShadowBottom(),
 			image: 'shadow.png'
 		});
 		
@@ -62,7 +63,7 @@ function HomeImageSlider(){
 		var date = Ti.UI.createLabel({
 			text: (new FormatDate()).getMonthString(date.getMonth()) +' '+date.getDate()+', '+date.getFullYear(),
 			top: 8,
-			left: 10,
+			left: setting.defualtLeft(),
 			bottom: 10,
 			height: 15,
 			textAlign:'left',
@@ -71,7 +72,7 @@ function HomeImageSlider(){
 			shadowColor:'#f0d87f',
 	        shadowOpacity:0.5,
 	        shadowOffset:{x:0, y:1},
-			font:{fontFamily:'HelveticaNeue-CondensedBold',fontSize:12,fontWeight:'bold'}
+			font:{fontFamily:'HelveticaNeue-CondensedBold',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 		});
 		overlay.add(date);
 		
@@ -79,46 +80,50 @@ function HomeImageSlider(){
 			backgroundColor: '#0c0c0c',
 			backgroundImage: 'dark.jpg',
 			width: setting.defualtContentWidth(),
-			height: 75,
+			height: setting.featureRowDarkImageHeight(),
 			bottom: 0
 		});
 		var titlelbl = Ti.UI.createLabel({
 			text: 'Welcome',
-			left: 10,
-			
-			
+			left: setting.defualtLeft(),
 			textAlign:'left',
-			width: 250,
+			width: setting.defualtPostContentWidth(),
 			color:'#efc006',
 			shadowColor:'#000000',
 	        shadowOpacity:0.5,
 	        shadowOffset:{x:0, y:1},
 	        top: 0,
-			font:{fontFamily:'HelveticaNeue-Light',fontSize:25,fontWeight:'bold'}
+			font:{fontFamily:'HelveticaNeue-Light',fontSize:setting.featureRowHeaderFontSize(),fontWeight:'bold'}
 		});
 		
-		view.add(titlelbl);
+		
 		
 		
 	
 		
 		var text = Ti.UI.createLabel({
 			text: "The Official App of the University of Iowa Alumni Association",
-			left: 15,
-			top: 22,
-			bottom: 10,
-			height: 55,
+			left: setting.defualtLeft(),
 			textAlign:'left',
-			width: 280,
+			width: setting.defualtPostContentWidth(),
 			color:'#ffffff',
 			shadowColor:'#000000',
 	        shadowOpacity:0.5,
 	        shadowOffset:{x:0, y:1},
-			font:{fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+			font:{fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 		});
 		//imagebox.add(shadow);
-		view.add(text);
-		//imagebox.add(view);
+		var welcomeTable = Ti.UI.createTableView({
+		separatorColor: 	'transparent',
+		backgroundColor: 	'transparent',
+		width: 				setting.defualtContentWidth(),
+	});
+		var rows = new TableRows();
+		rows.add(titlelbl);
+		rows.add(text);
+		welcomeTable.setData(rows.getRows());
+		view.add(welcomeTable);
+		
 		
 		container.add(imagebox);
 		container.add(overlay);

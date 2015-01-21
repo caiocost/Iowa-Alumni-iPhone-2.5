@@ -229,20 +229,40 @@ function IOSSetting(){
 	};
 	
 	/*
-	 * Home Image Slider
+	 * Feature Row
 	 * 
 	 */
 	
-	IOSSetting.prototype.homeImageSliderContainerHeight = function(){
+	IOSSetting.prototype.featureRowContainerHeight = function(){
 		return this.ratioCalculation(250,1.5);
 	};
 	
-	IOSSetting.prototype.homeImageSliderImageBoxHeight = function(){
+	IOSSetting.prototype.featureRowImageBoxHeight = function(){
 		return this.ratioCalculation(250,1.5);
 	};
 	
-	IOSSetting.prototype.homeImageSliderImageBoxTop = function(){
+	IOSSetting.prototype.featureRowImageBoxTop = function(){
 		return this.ratioCalculation(30,1.5);
+	};
+	
+	IOSSetting.prototype.featureRowOverlayHeight = function(){
+		return this.ratioCalculation(40,1.5);
+	};
+	
+	IOSSetting.prototype.featureRowShadowHeight = function(){
+		return this.ratioCalculation(100,1.5);
+	};
+	
+	IOSSetting.prototype.featureRowShadowBottom = function(){
+		return this.ratioCalculation(65,1.5);
+	};
+	
+	IOSSetting.prototype.featureRowDarkImageHeight = function(){
+		return this.ratioCalculation(75,1.5);
+	};
+	
+	IOSSetting.prototype.featureRowHeaderFontSize = function(){
+		return this.ratioCalculation(25,1.5);
 	};
 }
 
