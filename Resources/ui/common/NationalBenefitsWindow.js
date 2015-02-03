@@ -57,33 +57,43 @@ function NationalBenefitsWindow(title, tracker){
 		if (i % 2 == 0){
 		    var row = Ti.UI.createTableViewRow({
 		        height: 'auto',
-		        bottom: 10,
+		        bottom: setting.defualtBottom(),
 		    });
 		}
 		else{
 			var row = Ti.UI.createTableViewRow({
 		        height: 'auto',
 		        backgroundColor:'#cccccc',
-		        bottom: 10,
+		        bottom: setting.defualtBottom(),
 		    });
 		}
+		
+		var content = Ti.UI.createTableView({
+			separatorColor: 	'transparent',
+			backgroundColor: 	'transparent',
+			height:				'auto',
+			scrollable: false,
+			width: 				setting.platformWidth(),
+		});
+		
+		var rows = new TableRows();
 	    var titleLabel = Ti.UI.createLabel({
 	        text: (discount[i].title),
 	        textAlign: 'left',
-	        height: 20,
-	        top: 10,
-	        left: 10,
-	        font: {fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
+	        top: setting.defualtTop(),
+	        left: setting.defualtLeft(),
+	        font: {fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'}
 	    });
 	    var descriptionLabel = Ti.UI.createLabel({
 	        text: (discount[i].description),
 	        textAlign: 'left',
-	        left: 10,
-	        top: 31,
-	        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+	        left: setting.defualtLeft(),
+	        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	    });
-	    row.add(titleLabel);
-	    row.add(descriptionLabel);
+	    rows.add(titleLabel);
+	    rows.add(descriptionLabel);
+	    content.setData(rows.getRows());
+	    row.add(content);
 	    data.push(row);
 	};
 	

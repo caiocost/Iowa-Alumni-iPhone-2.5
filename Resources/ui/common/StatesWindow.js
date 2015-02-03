@@ -57,7 +57,7 @@ function StatesWindow(title, tracker){
 		height: 'auto',
 		left: 0,
 		width: Ti.Platform.displayCaps.platformWidth,
-		height: 280
+		height: setting.stateListHeight()
 	});
 	
 	var clubs = new GetFeed(Feeds.clubsFeed());

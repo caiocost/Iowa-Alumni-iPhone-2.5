@@ -24,10 +24,6 @@ function ContactUsWindow(title, tracker) {
 		backgroundColor: 	'transparent',
 		height:				'auto',
 		width: 				setting.defualtContentWidth(),
-		left: 				0,
-		top:				0,
-		bottom:				0,
-		padding:			0
 	});
 	
 	
@@ -95,7 +91,7 @@ function ContactUsWindow(title, tracker) {
 	
 	var levittline = Ti.UI.createView({
 		width: 				67,
-		top:				44			
+		top:				0			
 		
 	});
 	
@@ -112,24 +108,24 @@ function ContactUsWindow(title, tracker) {
 	
 	var addressLabel = Ti.UI.createLabel({
 		text: ("P.O. Box 1970").concat('\n').concat("Iowa City, IA 52244-1970"),
-		top: textCurrentTop + 15
+		//top: setting.defualtTop()
 	});
 	
 	
 	var phoneLabel = Ti.UI.createLabel({
 		text: ("Phone: 319/335-3294").concat('\n').concat("Toll Free: 800/469-2586").concat('\n').concat("FAX: 319/335-1079"),
-		top: 85
+		top: setting.defualtTop()
 	});
 	
 	
 	var emailLabel = Ti.UI.createLabel({
 		text: "alumni@uiowa.edu",
-		top: 128
+		//top: 128
 	});
 	
 	var emailline = Ti.UI.createView({
 		width: 				99,
-		top:				142			
+		//top:				142			
 	});
 	
 	emailLabel.addEventListener('click', function(e) {
@@ -199,8 +195,8 @@ function ContactUsWindow(title, tracker) {
 	
 	
 	//------------------------------------------   Contact View's Objects  ---------------------------------------------------------\\
-	contactView.add(contactLabel);	contactView.add(levittLabel);	contactView.add(levittline);	contactView.add(addressLabel);
-	contactView.add(phoneLabel);	contactView.add(emailLabel);	contactView.add(emailline);
+	/*contactRows.add(contactLabel);	contactRows.add(levittLabel);	contactRows.add(levittline);	contactRows.add(addressLabel);
+	contactRows.add(phoneLabel);	contactRows.add(emailLabel);	contactRows.add(emailline); contactTable.setData(contactRows.getRows()); contactView.add(contactTable);*/
 	
 	
 	//------------------------------------------   Social Media View's Objects  ---------------------------------------------------------\\

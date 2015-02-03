@@ -1,6 +1,9 @@
 var DateObject = require('ui/common/DateObject');
 var CachedImageView = require('ui/common/CachedImageView');
 var WebView = require('ui/common/WebView');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
+
 /*
  * Post Object
  * Essential attributes
@@ -28,9 +31,9 @@ function FeatureRow(post, tracker, title) {
 	var container =  Titanium.UI.createView({
 		backgroundColor: 'transparent',
 			height:			300,
-			width: 			300,
-			left: 			10,
-			top:			10,
+			width: setting.defualtContentWidth(),
+			top: setting.defualtTop(),
+			left: setting.defualtLeft(),
 			bottom:			0,
 			padding:		0,
 			borderRadius:	5
@@ -42,21 +45,21 @@ function FeatureRow(post, tracker, title) {
 
 	var imagebox = Ti.UI.createImageView({
 		image: post.image,
-		width: 300,
+		width: setting.defualtContentWidth(),
 		height: this.containerheight,
 		hires: true,
 		top: 30
 	});
 	//new CachedImageView('imageDirectoryName', post.image, imagebox);
 	var overlay = Ti.UI.createImageView({
-		width: 300,
+		width: setting.defualtContentWidth(),
 		height: 40,
 		hires: true,
 		top: 1,
 		image: 'gold.png'
 	});
 	var shadow = Ti.UI.createImageView({
-		width: 300,
+		width: setting.defualtContentWidth(),
 		height: 150,
 		hires: true,
 		top: this.containerheight-120,
@@ -131,12 +134,12 @@ function getTitleLabel(title,postheight) {
 	var temp = Ti.UI.createLabel({
 		text: title,
 		height:'auto',
-		width: 250,
+		width: setting.postTitleWidth(),
 		color:'#efc006',
 		font:{fontFamily:'HelveticaNeue-Light',fontSize:25,fontWeight:'bold'}
 	});
 	var view = Ti.UI.createView({
-		width: 250,
+		width: setting.postTitleWidth(),
 		height:'auto'
 	});
 	view.add(temp);
@@ -148,7 +151,7 @@ function getTitleLabel(title,postheight) {
 		bottom:10,
 		height:theheight,
 		textAlign:'left',
-		width: 250,
+		width: setting.postTitleWidth(),
 		color:'#efc006',
 		shadowColor:'#000000',
         shadowOpacity:0.5,
@@ -167,7 +170,7 @@ function getDescriptionLabel(description,postheight) {
 	var view = Ti.UI.createView({
 		backgroundColor: '#0c0c0c',
 		backgroundImage: 'dark.jpg',
-		width: 300,
+		width: setting.defualtContentWidth(),
 		height: 65,
 		top: postheight
 	});
@@ -179,7 +182,7 @@ function getDescriptionLabel(description,postheight) {
 		bottom: 10,
 		height: 55,
 		textAlign:'left',
-		width: 260,
+		width: setting.postWithImageWidth(),
 		color:'#ffffff',
 		shadowColor:'#000000',
         shadowOpacity:0.5,

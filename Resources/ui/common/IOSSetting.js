@@ -198,6 +198,10 @@ function IOSSetting(){
 		return this.ratioCalculation(50,1.5);
 	};
 	
+	IOSSetting.prototype.stateListHeight = function(){
+		return this.basicCalculation(280,600);
+	};
+	
 	/*
 	 * Event Header banner
 	 */
@@ -237,6 +241,10 @@ function IOSSetting(){
 		return this.ratioCalculation(250,1.5);
 	};
 	
+	IOSSetting.prototype.featureRowContainerLongerHeight = function(){
+		return this.ratioCalculation(250,1.5);
+	};
+	
 	IOSSetting.prototype.featureRowImageBoxHeight = function(){
 		return this.ratioCalculation(250,1.5);
 	};
@@ -263,6 +271,37 @@ function IOSSetting(){
 	
 	IOSSetting.prototype.featureRowHeaderFontSize = function(){
 		return this.ratioCalculation(25,1.5);
+	};
+	
+	/* Social Media Icons*/
+	
+	IOSSetting.prototype.socialMediaIconsHeight = function(){
+		return this.ratioCalculation(32,1.5);
+	};
+	
+	IOSSetting.prototype.socialMediaIconsWidth = function(){
+		return this.ratioCalculation(32,2);
+	};
+	
+	IOSSetting.prototype.socialMediaViewHeight = function(){
+		return this.ratioCalculation(this.socialMediaIconsHeight() + 4, 1.5);
+	};
+	
+	/* Clubs Section*/
+	IOSSetting.prototype.clubsIconsHeight = function(){
+		return this.ratioCalculation(35,1.5);
+	};
+	
+	IOSSetting.prototype.clubsIconsWidth = function(){
+		return this.ratioCalculation(35,1.5);
+	};
+	
+	IOSSetting.prototype.clubsIconsSpacing = function(){
+		return this.ratioCalculation(5,2);
+	};
+	
+	IOSSetting.prototype.clubsTableRowHeight = function(){
+		return this.ratioCalculation(100,2);
 	};
 }
 

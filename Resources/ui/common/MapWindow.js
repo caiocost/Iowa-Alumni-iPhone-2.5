@@ -4,6 +4,9 @@ var NavigateWindow = require('ui/common/NavigateWindow');
 var WebView = require('ui/common/WebView');
 var Feed = require('ui/common/Feed');
 var Map = require('ti.map');
+var TableRows = require('ui/common/TableRows');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 
 function MapWindow(title, tracker) {
 	tracker.trackScreen(title);
@@ -159,23 +162,32 @@ function MapWindow(title, tracker) {
 		        bottom: 10,
 		    });
 		}
+		var content = Ti.UI.createTableView({
+			separatorColor: 	'transparent',
+			backgroundColor: 	'transparent',
+			height:				100,
+			scrollable: false,
+			width: 				setting.platformWidth(),
+		});
+		var rows = new TableRows();
+		
 	    var companyLabel = Ti.UI.createLabel({
 	        text: (businessesInfo[i].company),
-	        textAlign: 'left',
-	        height: 20,
-	        top: 10,
-	        left: 10,
-	        font: {fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
+	        //height: 20,
+	        top: setting.defualtTop(),
+	        left: setting.defualtLeft(),
+	        font: {fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'}
 	    });
 	    var discountLabel = Ti.UI.createLabel({
 	        text: (businessesInfo[i].discount),
-	        textAlign: 'left',
-	        left: 10,
-	        top: 31,
-	        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+	        left: setting.defualtLeft(),
+	        //top: 31,
+	        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	    });
-	    row.add(companyLabel);
-	    row.add(discountLabel);
+	    rows.add(companyLabel);
+	    rows.add(discountLabel);
+	    content.setData(rows.getRows());
+	    row.add(content);
 	    data.push(row);
 	};
 

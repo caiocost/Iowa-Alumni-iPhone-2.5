@@ -3,6 +3,9 @@ var WebView = require('ui/common/WebView');
 var ApplicationWindow = require('ui/common/ApplicationWindow');
 var StaticAd = require('ui/common/StaticAd');
 var Feed = require('ui/common/Feed');
+var TableRows = require('ui/common/TableRows');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 
 /*
  * Clubs View
@@ -45,38 +48,47 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 		        bottom: 10
 		    });
 		}
+		
+		var content = Ti.UI.createTableView({
+			separatorColor: 	'transparent',
+			backgroundColor: 	'transparent',
+			height:				'auto',
+			scrollable: false,
+			width: 				setting.platformWidth(),
+		});
+		var rows = new TableRows();
 	    var cityLabel = Ti.UI.createLabel({
 	        text: (clubInfoData[i].city),
 	        textAlign: 'left',
-	        height: 20,
-	        top: 10,
-	        left: 10,
-	        font: {fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
+	        //height: 20,
+	        top: setting.defualtTop(),
+	        left: setting.defualtLeft(),
+	        font: {fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'}
 	    });
-	    row.add(cityLabel);
+	    rows.add(cityLabel);
 	    
 	   var leaderLabel = Ti.UI.createLabel({
 	        text: (clubInfoData[i].leader),
 	        textAlign: 'left',
-	        left: 10,
-	        top: 31,
-	        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+	        left: setting.defualtLeft(),
+	        //top: 31,
+	        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	    }); 
-	    row.add(leaderLabel);
+	    rows.add(leaderLabel);
 	    
-	    var currentTop = 46;
-	    var currentLeft = 10;
+	    //var currentTop = 46;
+	    var currentLeft = setting.defualtLeft();
 	    
 	    if (clubInfoData[i].phone != 'NA'){
 		    var phoneLabel = Ti.UI.createLabel({
 		        text: (clubInfoData[i].phone),
 		        textAlign: 'left',
-		        left: 10,
-		        top: currentTop,
-		        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		        left: setting.defualtLeft(),
+		        //top: currentTop,
+		        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 		    });
-		    row.add(phoneLabel);
-		    currentTop = currentTop + 15;
+		    rows.add(phoneLabel);
+		    //currentTop = currentTop + 15;
 		    
 			
 	    }
@@ -85,13 +97,13 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 		        text: (clubInfoData[i].email),
 		        textAlign: 'left',
 		        index: i,
-		        left: 10,
-		        top: currentTop,
-		        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		        left: setting.defualtLeft(),
+		        //top: currentTop,
+		        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 		    });
 		  
-		    row.add(emailLabel);
-	    	currentTop = currentTop + 15;
+		    rows.add(emailLabel);
+	    	//currentTop = currentTop + 15;
 	    	
 	    }
 	    
@@ -99,25 +111,33 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 		    var webLabel = Ti.UI.createLabel({
 		        text: (clubInfoData[i].web),
 		        textAlign: 'left',
-		        left: 10,
-		        top: currentTop,
-		        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		        left: setting.defualtLeft(),
+		        //top: currentTop,
+		        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 		    });
 		   
-			row.add(webLabel);
-			currentTop = currentTop + 20;
+			rows.add(webLabel);
+			//currentTop = currentTop + 20;
 	    }
+	    
+	    var iconsView = Ti.UI.createView({
+			backgroundColor: 	'transparent',
+			height:				'auto',
+			left: 0,
+			width: setting.platformWidth(),
+		});
+	    
 	    if (clubInfoData[i].phone != 'NA'){
 		    var phoneButton = Ti.UI.createButton({
 		    	backgroundImage:"call.png",
-				width:35,
-				height:35,
-				top: currentTop,
+				width:setting.clubsIconsWidth(),
+				height:setting.clubsIconsHeight(),
+				//top: currentTop,
 		  		left: currentLeft,
 				buttonid: i,
 			});
-			currentLeft = currentLeft + 40;
-		    row.add(phoneButton);
+			currentLeft = currentLeft + setting.clubsIconsWidth() + setting.clubsIconsSpacing();
+		    iconsView.add(phoneButton);
 		   
 
 		     phoneButton.addEventListener('click', function(e) {
@@ -144,13 +164,13 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	      if (clubInfoData[i].email != 'NA'){
 		     var emailButton = Ti.UI.createButton({
 		    	backgroundImage:"mail.png",
-				width:35,
-				height:35,
-				top: currentTop,
+				width:setting.clubsIconsWidth(),
+				height:setting.clubsIconsHeight(),
+				//top: currentTop,
 		  		left: currentLeft,
 				buttonid: i
 			});
-			currentLeft = currentLeft + 40;
+			currentLeft = currentLeft + setting.clubsIconsWidth() + setting.clubsIconsSpacing();
 		    
 		   
 	    	emailButton.addEventListener('click', function(e) {
@@ -169,7 +189,7 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 				});
 			}); 
 	
-		    row.add(emailButton);
+		    iconsView.add(emailButton);
 	    	
 	    	
 	    }
@@ -177,13 +197,13 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	    if (clubInfoData[i].web != 'NA'){
 		    var webButton = Ti.UI.createButton({
 		    	backgroundImage:"web.png",
-				width:35,
-				height:35,
-				top: currentTop,
+				width:setting.clubsIconsWidth(),
+				height:setting.clubsIconsHeight(),
+				//top: currentTop,
 		  		left: currentLeft,
 				buttonid: i,
 			});
-			//currentLeft = currentLeft + 40;
+			currentLeft = currentLeft + setting.clubsIconsWidth() + setting.clubsIconsSpacing();
 		   
 		    
 		    webButton.addEventListener('click', function(e) {
@@ -197,17 +217,19 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 					value: 1
 				});
 			}); 
-			row.add(webButton);
+			iconsView.add(webButton);
 	
 	    }
-	    
+	   rows.add(iconsView);
 	   rowCounter++;
-	    data.push(row);
+	   content.setData(rows.getRows());
+	   row.add(content);
+	   data.push(row);
 	    
 	};
 	data = addRows(i, data, true);
-	table.setData(data);
 	
+	table.setData(data);
 	self.add(table);
 	
 	return self;
@@ -216,6 +238,28 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 
 //Helper Functions
 function addRows(i, data, flag){
+	var width = setting.platformHeight();
+	while (width > 0) {
+		if (i % 2 == 1){
+			var row = Ti.UI.createTableViewRow({
+			    height: setting.clubsTableRowHeight(),
+			    selectionStyle: 'none',
+			    backgroundColor:'#cccccc',
+			});
+			data.push(row);
+			
+		}
+		else{
+			var row = Ti.UI.createTableViewRow({
+			    height: setting.clubsTableRowHeight(),
+			    selectionStyle: 'none',
+			});
+			data.push(row);
+		}
+		i++;
+		width = width - setting.clubsTableRowHeight();
+	}
+	/*
 	if (i == 1 && flag == true){
 		var row = Ti.UI.createTableViewRow({
 		    height: 100,
@@ -277,7 +321,7 @@ function addRows(i, data, flag){
 		data.push(row);
 		
 	}
-	
+	*/
 	return data;
 }
 
