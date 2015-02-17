@@ -13,7 +13,7 @@ function HomeSMSection(tracker){
 			textAlign: 'center',
 			width: 0,
 			top: setting.defualtTop(),
-		});
+	});
 		
 		var row = Ti.UI.createTableViewRow();
 		row.add(socialMediaView);

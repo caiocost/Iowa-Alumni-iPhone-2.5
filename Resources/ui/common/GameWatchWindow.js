@@ -2,12 +2,17 @@ var WebView = require('ui/common/WebView');
 var EditText = require('ui/common/EditText');
 var ClubsWindow = require('ui/common/ClubsWindow');
 var Map = require('ti.map');
+var TableRows = require('ui/common/TableRows');
+var TableStyling = require('ui/common/TableStyling');
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
+
 /*
  * Clubs and Game Watch Tabs 
  */
 function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 	var scrollBoxHeight = 60;
-	
+	var tableStyling= new TableStyling();
 	var mapWin = Ti.UI.createView({
 	    top: top,
 	    backgroundColor:'#ffffff',
@@ -38,7 +43,7 @@ function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 			animate: true,
 			regionFit: true,
 			userLocation: false,
-			height: 200,
+			height: setting.gameWatchMapHeight(),
 		    annotations: gameWatchInfo,
 			top: 0
 		});
@@ -90,75 +95,66 @@ function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 		
 		var table = Ti.UI.createTableView({
 		height: 'auto',
-		top: 200
+		top: setting.gameWatchMapHeight()
 	});
 
 	
 	var data = [];
 	var rowCounter = 0;
 	for (var i = 0; i <= gameWatchInfo.length - 1; i++) {
-		if (rowCounter % 2 == 0){
-		    var row = Ti.UI.createTableViewRow({
-		    	club: clubData[i].club,
-		    	latitude:  clubData[i].latitude,
-				longitude: clubData[i].longitude,
-		        height: 'auto',
-		        bottom: 10
-		    });
-		}
-		else{
-			var row = Ti.UI.createTableViewRow({
-		    	club: clubData[i].club,
-		    	latitude:  clubData[i].latitude,
-				longitude: clubData[i].longitude,
-		        height: 'auto',
-		        backgroundColor:'#cccccc',
-		        bottom: 10
-		    });
-		}
+		
+	    var row = Ti.UI.createTableViewRow({
+	    	club: clubData[i].club,
+	    	latitude:  clubData[i].latitude,
+			longitude: clubData[i].longitude,
+	        height: 'auto',
+	        bottom: 10
+	    });
+		(rowCounter % 2 == 0) ? row.backgroundColor = '#ffffff' : row.backgroundColor = '#cccccc';
+		
+		var content = tableStyling.blankTableView(200);
+		
+		var rows = new TableRows();
+		
 	    var clubLabel = Ti.UI.createLabel({
 	        text: (clubData[i].club),
 	        textAlign: 'left',
-	        height: 20,
-	        top: 10,
-	        left: 10,
-	        font: {fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'}
+	        top: setting.defualtTop(),
+	        left: setting.defualtLeft(),
+	        font: {fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'}
 	    });
 	    var placeLabel = Ti.UI.createLabel({
 	        text: (clubData[i].place),
 	        textAlign: 'left',
-	        left: 10,
-	        top: 31,
-	        height: 14,
-	        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+	        left: setting.defualtLeft(),
+	        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	    });
 	    var streetLabel = Ti.UI.createLabel({
 	        text: clubData[i].street,//new EditText(clubData[i].street).adjustedText(),
 	        textAlign: 'left',
-	        left: 10,
-	        top: 46,
-	        height: 14,
-	        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+	        left: setting.defualtLeft(),
+	        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	    });
+	    rows.add(clubLabel);
+	    rows.add(placeLabel);
+	    rows.add(streetLabel);
 	    if (clubData[i].phone != 'NA'){
 	    	var phoneLabel = Ti.UI.createLabel({
 	        	text: (clubData[i].phone),
 		        textAlign: 'left',
-		        left: 10,
-		        top: 61,
-		        height: 14,
-		        font: {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'}
+		        left: setting.defualtLeft(),
+		        font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 		    });
 			
-		    row.add(phoneLabel);
+		    rows.add(phoneLabel);
 	    }
-	    row.add(clubLabel);
-	    row.add(placeLabel);
-	    row.add(streetLabel);
+	    
+	    content.setData(rows.getRows());
+	    row.add(content);
 	    data.push(row);
 	    rowCounter++;
 	};
-		data = addRows(i, data, false);
+		data = tableStyling.addEmptyZebraStripRows(i, data, 200);
 		table.setData(data);
 		
 		mapWin.add(map);
@@ -166,89 +162,28 @@ function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 		
 		table.addEventListener('click', function(e){
 			
-			tracker.trackEvent({
-						category: "Game Watches",
-						action: "click",
-						label: clubData[e.index].club,
-						value: 1
-			});
+			if (e.index < clubData.length){
+				tracker.trackEvent({
+							category: "Game Watches",
+							action: "click",
+							label: clubData[e.index].club,
+							value: 1
+				});
+				
+				 map.setLocation({
+		    latitude: e.row.latitude, longitude: e.row.longitude, animate:true,
+		    latitudeDelta:0.01, longitudeDelta:0.01});
+		    
+				curLatitude =  e.row.latitude;
+				curLongitude =  e.row.longitude;
+				map.selectAnnotation(gameWatchInfo[e.index]);
+			}
 			
-			 map.setLocation({
-	    latitude: e.row.latitude, longitude: e.row.longitude, animate:true,
-	    latitudeDelta:0.01, longitudeDelta:0.01});
-	    
-			curLatitude =  e.row.latitude;
-			curLongitude =  e.row.longitude;
-			map.selectAnnotation(gameWatchInfo[e.index]);
 		});
 		
 		return mapWin;
 	}
 
-//Helper Functions
-function addRows(i, data, flag){
-	if (i == 1 && flag == true){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    bottom: 10
-		});
-		data.push(row);
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-	}
-	else if (i == 1 && flag == false){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-	}
-	else if (i == 2 && flag == true){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    bottom: 10
-		});
-		data.push(row);
-		
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-	}
-	else if (i == 3 && flag == true){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		     backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-	}
-	
-	return data;
-}
+
 
 module.exports = GameWatchWindow;

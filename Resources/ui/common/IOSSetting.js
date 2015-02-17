@@ -276,7 +276,7 @@ function IOSSetting(){
 	/* Social Media Icons*/
 	
 	IOSSetting.prototype.socialMediaIconsHeight = function(){
-		return this.ratioCalculation(32,1.5);
+		return this.ratioCalculation(32,2);
 	};
 	
 	IOSSetting.prototype.socialMediaIconsWidth = function(){
@@ -303,6 +303,46 @@ function IOSSetting(){
 	IOSSetting.prototype.clubsTableRowHeight = function(){
 		return this.ratioCalculation(100,2);
 	};
+	
+	/*Game Watch Section */
+	IOSSetting.prototype.gameWatchMapHeight = function(){
+		return this.platformHeight() * 0.4;
+	};
+	
+	IOSSetting.prototype.gameWatchTableRowHeight = function(){
+		return this.ratioCalculation(150,2);
+	};
+	
+	/*Iowa City Benefits  */
+	IOSSetting.prototype.iowaCityBenefitsMapHeight = function(){
+		return this.platformHeight() * 0.4;
+	};
+	
+	IOSSetting.prototype.iowaCityBenefitsTextViewHeight = function(){
+		return this.ratioCalculation(70,2);
+	};
+	
+	/*Contact Section */
+	IOSSetting.prototype.contactViewHeight = function(){
+		return this.ratioCalculation(160,2);
+	};
+	
+	IOSSetting.prototype.contactEmailLine = function(){
+		return this.basicCalculation(99,129);
+	};
+	
+	IOSSetting.prototype.contactLevittLine = function(){
+		return this.basicCalculation(67,97);
+	};
+	
+	IOSSetting.prototype.contactSMIconHeight = function(){
+		return this.ratioCalculation(48,1.5);
+	};
+	
+	IOSSetting.prototype.contactSMIconWidth = function(){
+		return this.ratioCalculation(48,1.5);
+	};
+ 
 }
 
 module.exports = IOSSetting;

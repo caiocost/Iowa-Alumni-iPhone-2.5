@@ -4,6 +4,7 @@ var ApplicationWindow = require('ui/common/ApplicationWindow');
 var StaticAd = require('ui/common/StaticAd');
 var Feed = require('ui/common/Feed');
 var TableRows = require('ui/common/TableRows');
+var TableStyling = require('ui/common/TableStyling');
 var IOSSetting = require('ui/common/IOSSetting');
 var setting = new IOSSetting();
 
@@ -13,6 +14,8 @@ var setting = new IOSSetting();
 
 function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	var scrollBoxHeight = 60;
+	var tableStyling= new TableStyling();
+	
 	var self = Ti.UI.createView({
 	    backgroundColor:'#e2e2e2',
 		top: top,
@@ -30,32 +33,18 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	var rowCounter = 0;
 	for (var i = 0; i <= clubInfoData.length - 1; i++) {
 
-		if (rowCounter % 2 == 0){
-		    var row = Ti.UI.createTableViewRow({
-		    	city: clubInfoData[i].city,
-		        height: 'auto',
-		        selectionStyle: 'none',
-		        index: i,
-		        bottom: 10
-		    });
-		}
-		else{
-			 var row = Ti.UI.createTableViewRow({
-		    	city: clubInfoData[i].city,
-		        height: 'auto',
-		        selectionStyle: 'none',
-		        backgroundColor:'#cccccc',
-		        bottom: 10
-		    });
-		}
+
+	    var row = Ti.UI.createTableViewRow({
+	    	city: clubInfoData[i].city,
+	        height: 'auto',
+	        selectionStyle: 'none',
+	        index: i,
+	        bottom: 10
+	    });
 		
-		var content = Ti.UI.createTableView({
-			separatorColor: 	'transparent',
-			backgroundColor: 	'transparent',
-			height:				'auto',
-			scrollable: false,
-			width: 				setting.platformWidth(),
-		});
+		(rowCounter % 2 == 0) ? row.backgroundColor = '#ffffff' : row.backgroundColor = '#cccccc';
+		var content = tableStyling.blankTableView('auto');
+		
 		var rows = new TableRows();
 	    var cityLabel = Ti.UI.createLabel({
 	        text: (clubInfoData[i].city),
@@ -227,7 +216,8 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	   data.push(row);
 	    
 	};
-	data = addRows(i, data, true);
+	
+	data = tableStyling.addEmptyZebraStripRows(i, data, setting.clubsTableRowHeight());
 	
 	table.setData(data);
 	self.add(table);
@@ -236,94 +226,7 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	
 }
 
-//Helper Functions
-function addRows(i, data, flag){
-	var width = setting.platformHeight();
-	while (width > 0) {
-		if (i % 2 == 1){
-			var row = Ti.UI.createTableViewRow({
-			    height: setting.clubsTableRowHeight(),
-			    selectionStyle: 'none',
-			    backgroundColor:'#cccccc',
-			});
-			data.push(row);
-			
-		}
-		else{
-			var row = Ti.UI.createTableViewRow({
-			    height: setting.clubsTableRowHeight(),
-			    selectionStyle: 'none',
-			});
-			data.push(row);
-		}
-		i++;
-		width = width - setting.clubsTableRowHeight();
-	}
-	/*
-	if (i == 1 && flag == true){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    bottom: 10
-		});
-		data.push(row);
-		
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-	}
-	else if (i == 1 && flag == false){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-	}
-	else if (i == 2 && flag == true){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    bottom: 10
-		});
-		data.push(row);
-		
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		    backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-	}
-	else if (i == 3 && flag == true){
-		var row = Ti.UI.createTableViewRow({
-		    height: 100,
-		    selectionStyle: 'none',
-		     backgroundColor:'#cccccc',
-		    bottom: 10
-		});
-		data.push(row);
-		
-	}
-	*/
-	return data;
-}
+
 
 
 module.exports = ClubsWindow;

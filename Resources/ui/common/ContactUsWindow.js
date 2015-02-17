@@ -4,10 +4,11 @@ var SocialMediaIcons = require('ui/common/SocialMediaIcons');
 var StaticAd = require('ui/common/StaticAd');
 var IOSSetting = require('ui/common/IOSSetting');
 var TableRows = require('ui/common/TableRows');
+var TableStyling = require('ui/common/TableStyling');
 var setting = new IOSSetting();
 
 function ContactUsWindow(title, tracker) {
-	
+	var tableStyling= new TableStyling();
 	var mainTable = Ti.UI.createTableView({
 		separatorColor: 	'transparent',
 		backgroundColor: 	'transparent',
@@ -19,37 +20,28 @@ function ContactUsWindow(title, tracker) {
 		padding:			0
 	});
 	
-	var contactTable = Ti.UI.createTableView({
-		separatorColor: 	'transparent',
-		backgroundColor: 	'transparent',
-		height:				'auto',
-		width: 				setting.defualtContentWidth(),
-	});
-	
-	
 	var mainRows = new TableRows();
 	var contactRows = new TableRows();
 	tracker.trackScreen(title);
 	//The Different Views
-	var contactView = Ti.UI.createView({
-		separatorColor: 	'd5d5d5',
+	var contactTable = Ti.UI.createTableView({
+		separatorColor: 	'transparent',
 		backgroundColor: 	'ffffff',
-		height:				160,
+		height:				setting.contactViewHeight(),
 		width: 				setting.defualtContentWidth(),
 		left: 				setting.defualtLeft(),
 		top:				setting.defualtTop(),
-		bottom:				0,
-		padding:			0,
 		borderRadius:		5,
 		borderColor: 		'#d5d5d5',
+		scrollable: false,
 		borderWidth: 		1
 	});
-	mainRows.add(contactView);
 	
-	var socialMediaView = Ti.UI.createView({
+	
+	var socialMediaTable = Ti.UI.createView({
 		separatorColor: 	'd5d5d5',
 		backgroundColor: 	'ffffff',
-		height:				160,
+		height:				setting.contactViewHeight(),
 		width: 				setting.defualtContentWidth(),
 		left: 				setting.defualtLeft(),
 		top:				setting.defualtTop(),
@@ -60,8 +52,7 @@ function ContactUsWindow(title, tracker) {
 		borderWidth: 		1
 		
 	});
-	mainRows.add(socialMediaView);
-	mainTable.setData(mainRows.getRows());
+	
 		
 	var scrollMainView = Ti.UI.createView({
 	  top: 0,
@@ -81,16 +72,15 @@ function ContactUsWindow(title, tracker) {
 		text: "Contact Us",
 		top: setting.defualtTop()
 	});
-	contactRows.add(contactLabel); 
+	
 	var levittLabel = Ti.UI.createLabel({
 		text: "Levitt Center",
 		top: setting.defualtTop()
-	});
-	contactRows.add(contactLabel); 
+	}); 
 	textCurrentTop = levittLabel.top;
 	
 	var levittline = Ti.UI.createView({
-		width: 				67,
+		width: 				setting.contactLevittLine(),
 		top:				0			
 		
 	});
@@ -124,7 +114,7 @@ function ContactUsWindow(title, tracker) {
 	});
 	
 	var emailline = Ti.UI.createView({
-		width: 				99,
+		width: 				setting.contactEmailLine(),
 		//top:				142			
 	});
 	
@@ -153,13 +143,34 @@ function ContactUsWindow(title, tracker) {
 	
 	var icon = new SocialMediaIcons();
 	
-	var facebookimage = icon.facebook(37,55,tracker);
-	var twitterimage = icon.twitter(37,115,tracker);
-	var foursquareimage = icon.foursquare(37,175,tracker);
-	var linkedInimage = icon.linkedIn(97,55,tracker);
-	var pinterestimage = icon.pinterest(97,115,tracker);
-	var instagramimage = icon.instagram(97,175,tracker);
+	var socialMediaView = Ti.UI.createView({
+			
+			backgroundColor: 	'#fff',
+			//height:				setting.socialMediaViewHeight(),
+			//left: 				setting.defualtLeft(),
+			textAlign: 'center',
+			width: 0,
+			top: setting.defualtTop(),
+	});
 	
+	
+	var currentLeft = 0;
+	var currentTop = 0;
+	var facebookimage = icon.facebook(currentTop,currentLeft,tracker);
+	currentLeft = updateLeft(currentLeft);
+	var twitterimage = icon.twitter(currentTop,currentLeft,tracker);
+	currentLeft = updateLeft(currentLeft);
+	var foursquareimage = icon.foursquare(currentTop,currentLeft,tracker);
+	
+	currentLeft = 0;
+	currentTop = setting.contactSMIconHeight() + 5;
+	var linkedInimage = icon.linkedIn(currentTop,currentLeft,tracker);
+	currentLeft = updateLeft(currentLeft);
+	var pinterestimage = icon.pinterest(currentTop,currentLeft,tracker);
+	currentLeft = updateLeft(currentLeft);
+	var instagramimage = icon.instagram(currentTop,currentLeft,tracker);
+	urrentLeft = updateLeft(currentLeft);
+	socialMediaView.width = currentLeft;
 	
 	
 	//---------------------------------------------------------   Adjust Common Arttributes Here  -----------------------------------\\
@@ -167,10 +178,10 @@ function ContactUsWindow(title, tracker) {
 	//Font
 	 
 	   emailLabel.font 
-	= phoneLabel.font = addressLabel.font =  levittLabel.font = {fontFamily:'HelveticaNeue-Light',fontSize:12,fontWeight:'bold'};
+	= phoneLabel.font = addressLabel.font =  levittLabel.font = {fontFamily:'HelveticaNeue-Light',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'};
 	
 	// Font (Header)
-	socialMdeiaLabel.font =  contactLabel.font = {fontFamily:'Helvetica-Bold',fontSize:16,fontWeight:'normal'} ;
+	socialMdeiaLabel.font =  contactLabel.font = {fontFamily:'Helvetica-Bold',fontSize:setting.postTitleFontSize(),fontWeight:'normal'} ;
 	
 	//Text Align(For All Text)
 	 emailLabel.textAlign = phoneLabel.textAlign = addressLabel.textAlign =  levittLabel.textAlign = 
@@ -178,10 +189,10 @@ function ContactUsWindow(title, tracker) {
 	
 	
 	//Width (Images)
-	instagramimage.width = pinterestimage.width = linkedInimage.width = foursquareimage.width = twitterimage.width = facebookimage.width = 48;
+	instagramimage.width = pinterestimage.width = linkedInimage.width = foursquareimage.width = twitterimage.width = facebookimage.width = setting.contactSMIconWidth();
 	
 	//Height (Images)
-	instagramimage.height = pinterestimage.height = linkedInimage.height = foursquareimage.height = twitterimage.height = facebookimage.height = 48;
+	instagramimage.height = pinterestimage.height = linkedInimage.height = foursquareimage.height = twitterimage.height = facebookimage.height = setting.contactSMIconHeight();
 	 
 	 //Link Color
 	 emailline.backgroundColor =  levittline.backgroundColor =  emailLabel.color =  levittLabel.color = "blue";
@@ -195,23 +206,27 @@ function ContactUsWindow(title, tracker) {
 	
 	
 	//------------------------------------------   Contact View's Objects  ---------------------------------------------------------\\
-	/*contactRows.add(contactLabel);	contactRows.add(levittLabel);	contactRows.add(levittline);	contactRows.add(addressLabel);
-	contactRows.add(phoneLabel);	contactRows.add(emailLabel);	contactRows.add(emailline); contactTable.setData(contactRows.getRows()); contactView.add(contactTable);*/
-	
-	
+	contactRows.add(contactLabel);	contactRows.add(levittLabel);	contactRows.add(levittline);	contactRows.add(addressLabel);
+	contactRows.add(phoneLabel);	contactRows.add(emailLabel);	contactRows.add(emailline);/* */contactTable.setData(contactRows.getRows());
+	mainRows.add(contactTable);
 	//------------------------------------------   Social Media View's Objects  ---------------------------------------------------------\\
 	
-		socialMediaView.add(socialMdeiaLabel);socialMediaView.add(facebookimage); socialMediaView.add(twitterimage);socialMediaView.add(foursquareimage);socialMediaView.add(linkedInimage);
+		socialMediaTable.add(socialMdeiaLabel);socialMediaView.add(facebookimage); socialMediaView.add(twitterimage);socialMediaView.add(foursquareimage);socialMediaView.add(linkedInimage);
 	socialMediaView.add(pinterestimage);socialMediaView.add(instagramimage); 
-	//------------------------------------------   Views    ---------------------------------------------------------------------------\\	
-	scrollMainView.add(mainTable); scrollMainView.add(ad);
+	socialMediaTable.add(socialMediaView);
+	mainRows.add(socialMediaTable);
 	
+	//------------------------------------------   Views    ---------------------------------------------------------------------------\\	
+	mainTable.setData(mainRows.getRows()); scrollMainView.add(mainTable); scrollMainView.add(ad);
+	 
 	
 	
 	var self = new ApplicationWindow(title, scrollMainView);
 	return self;
 }
 
-
+function updateLeft(currentLeft){
+	return currentLeft = currentLeft + setting.contactSMIconWidth() + setting.defualtLeft();
+}
 
 module.exports = ContactUsWindow;

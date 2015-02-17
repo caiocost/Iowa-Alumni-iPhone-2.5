@@ -5,12 +5,14 @@ var WebView = require('ui/common/WebView');
 var Feed = require('ui/common/Feed');
 var Map = require('ti.map');
 var TableRows = require('ui/common/TableRows');
+var TableStyling = require('ui/common/TableStyling');
 var IOSSetting = require('ui/common/IOSSetting');
 var setting = new IOSSetting();
 
 function MapWindow(title, tracker) {
 	tracker.trackScreen(title);
 	var Feeds = new Feed();
+	var tableStyling= new TableStyling();
 	var mapWin = Ti.UI.createView({
 	    
 	    backgroundColor:'#ffffff',
@@ -46,7 +48,7 @@ function MapWindow(title, tracker) {
 		animate: true,
 		regionFit: true,
 		userLocation:false,
-		height: 200,
+		height: setting.iowaCityBenefitsMapHeight(),
 	    annotations: companyInfo,
 		top: 0
 	});
@@ -99,28 +101,28 @@ function MapWindow(title, tracker) {
 	
 	var textView = Ti.UI.createView({
 		backgroundColor: 	'#e2e2e2',
-		height:				70,
-		top:				200,
+		height:				setting.iowaCityBenefitsTextViewHeight(),
+		top:				setting.iowaCityBenefitsMapHeight(),
 		
 	});
 	var introLabel = Ti.UI.createLabel({
-			 text: ('UI Alumni Association members have').concat('\nan array of available to them. Use your member benefit card at any of these locations.'),
+			 text: ('UI Alumni Association members have an array of  benefits available to them. Use your member benefit card at any of these locations.'),
 			 textAlign: 'left',
-			 left: 10,
-			 width: 300,
-			 top: 10,
-			font: {fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+			 width: setting.defualtPostContentWidth(),
+			 top: setting.defualtTop(),
+	        left: setting.defualtLeft(),
+			font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 			        
 		});
 	textView.add(introLabel);	
 	
 	var linkLabel = Ti.UI.createLabel({
-			 text: 'benefits',
+			 text: 'Benefits',
 			 textAlign: 'left',
-			 left: 236.5,
-			 top: 10,
+			 right: setting.defualtRight(),
+			 bottom: setting.defualtBottom(),
 			 color: 'blue',
-			font: {fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+			font: {fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 			        
 		});
 		
@@ -137,38 +139,23 @@ function MapWindow(title, tracker) {
 
 	var table = Ti.UI.createTableView({
 		height: 'auto',
-		top: 270
+		top: setting.iowaCityBenefitsTextViewHeight() + setting.iowaCityBenefitsMapHeight()
 	});
 
 	
 	var data = [];
 	for (var i = 0; i <= businessesInfo.length - 1; i++) {
-		if (i % 2 == 0){
-		    var row = Ti.UI.createTableViewRow({
-		    	company: businessesInfo[i].company,
-		    	latitude:  businessesInfo[i].latitude,
-				longitude: businessesInfo[i].longitude,
-		        height: 'auto',
-		        bottom: 10,
-		    });
-		}
-		else{
-			var row = Ti.UI.createTableViewRow({
-		    	company: businessesInfo[i].company,
-		    	latitude:  businessesInfo[i].latitude,
-				longitude: businessesInfo[i].longitude,
-		        height: 'auto',
-		        backgroundColor:'#cccccc',
-		        bottom: 10,
-		    });
-		}
-		var content = Ti.UI.createTableView({
-			separatorColor: 	'transparent',
-			backgroundColor: 	'transparent',
-			height:				100,
-			scrollable: false,
-			width: 				setting.platformWidth(),
-		});
+		
+	    var row = Ti.UI.createTableViewRow({
+	    	company: businessesInfo[i].company,
+	    	latitude:  businessesInfo[i].latitude,
+			longitude: businessesInfo[i].longitude,
+	        height: 'auto',
+	        bottom: 10,
+	    });
+	
+		(i % 2 == 0) ? row.backgroundColor = '#ffffff' : row.backgroundColor = '#cccccc';
+		var content = tableStyling.blankTableView(100);
 		var rows = new TableRows();
 		
 	    var companyLabel = Ti.UI.createLabel({
