@@ -1,9 +1,8 @@
 var ApplicationWindow = require('ui/common/ApplicationWindow');
 var GetFeed = require('ui/common/GetFeed');
 var Feed = require('ui/common/Feed');
-var IOSSetting = require('ui/common/IOSSetting');
 var TableRows = require('ui/common/TableRows');
-var setting = new IOSSetting();
+
 
 function  MemberCardWindow(title, tracker){
 	tracker.trackScreen(title);

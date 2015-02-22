@@ -4,8 +4,7 @@ var ClubsWindow = require('ui/common/ClubsWindow');
 var Map = require('ti.map');
 var TableRows = require('ui/common/TableRows');
 var TableStyling = require('ui/common/TableStyling');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+
 
 /*
  * Clubs and Game Watch Tabs 
@@ -112,7 +111,7 @@ function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 	    });
 		(rowCounter % 2 == 0) ? row.backgroundColor = '#ffffff' : row.backgroundColor = '#cccccc';
 		
-		var content = tableStyling.blankTableView(200);
+		var content = tableStyling.blankTableView(setting.gameWatchTableRowHeight());
 		
 		var rows = new TableRows();
 		
@@ -154,7 +153,7 @@ function GameWatchWindow(clubData, clubInfoData, tracker, top) {
 	    data.push(row);
 	    rowCounter++;
 	};
-		data = tableStyling.addEmptyZebraStripRows(i, data, 200);
+		data = tableStyling.addEmptyZebraStripRows(i, data, setting.gameWatchTableRowHeight());
 		table.setData(data);
 		
 		mapWin.add(map);

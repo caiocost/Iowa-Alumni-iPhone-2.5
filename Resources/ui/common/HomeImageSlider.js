@@ -116,6 +116,7 @@ function HomeImageSlider(){
 		var welcomeTable = Ti.UI.createTableView({
 		separatorColor: 	'transparent',
 		backgroundColor: 	'transparent',
+		scrollable: false,
 		width: 				setting.defualtContentWidth(),
 	});
 		var rows = new TableRows();

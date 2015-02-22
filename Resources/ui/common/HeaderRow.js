@@ -1,8 +1,7 @@
 var DateObject = require('ui/common/DateObject');
 var EditText = require('ui/common/EditText');
 var WebView = require('ui/common/WebView');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+
 /*
  * Event Date Header Object
  * Essential attributes

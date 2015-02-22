@@ -1,5 +1,3 @@
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
 
 function TableStyling(){
 	TableStyling.prototype.addEmptyZebraStripRows = function (i, data, rowHeight){

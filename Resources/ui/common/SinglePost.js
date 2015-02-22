@@ -2,9 +2,8 @@ var GetFeed = require('ui/common/GetFeed');
 var DateObject = require('ui/common/DateObject');
 var CachedImageView = require('ui/common/CachedImageView');
 var WebView = require('ui/common/WebView');
-var IOSSetting = require('ui/common/IOSSetting');
 var TableRows = require('ui/common/TableRows');
-var setting = new IOSSetting();
+var Description = require('ui/common/Description');
 /*
  * Return a Single Post Area that contains
  * tilte, description, and picture(Not Required)
@@ -82,11 +81,10 @@ function SinglePost (post, tracker, title){
 				height: Ti.UI.FILL,
 				top: 0
 			});
-			var descArea = Ti.UI.createImageView({left: 0, width: setting.defualtContentWidth()});
+			var descArea = Ti.UI.createImageView({left: 0, width: Ti.UI.FILL});
 			imageContainer.add(imagebox);
 			descArea.add(imageContainer);
-			
-			var desclbl = getDescriptionLabel(post.description, setting.postWithNoImageWidth());
+			var desclbl = getDescriptionLabel(post.description, setting.postWithImageWidth());
 			descArea.add(desclbl);
 			rows.add(descArea);
 		}
@@ -144,7 +142,7 @@ function getTitleLabel(title) {
 		top: setting.defualtTop(),
 		height: view.toImage().height,
 		textAlign:'left',
-		width: setting.defualtPostContentWidth(),
+		width: setting.postTitleWidth(),
 		color:'#303030',
         shadowOpacity:0.5,
         shadowOffset:{x:0, y:1},
@@ -158,7 +156,7 @@ function getTitleLabel(title) {
 function getDescriptionLabel(description, descWidth) {
 
 	var text = Ti.UI.createLabel({
-		text: description,
+		text: (new Description(description)).getDescription(),
 		left: setting.defualtLeft(),
 		top: 0,
 		height: setting.postDescriptionHeight(),

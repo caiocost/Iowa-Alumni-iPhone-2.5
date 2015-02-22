@@ -5,8 +5,7 @@ var StaticAd = require('ui/common/StaticAd');
 var Feed = require('ui/common/Feed');
 var TableRows = require('ui/common/TableRows');
 var TableStyling = require('ui/common/TableStyling');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+
 
 /*
  * Clubs View

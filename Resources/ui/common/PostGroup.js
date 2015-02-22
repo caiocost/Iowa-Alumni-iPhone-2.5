@@ -1,5 +1,3 @@
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
 /*
  *	Post Table constructor
  *		Creates table for each Row object

@@ -77,12 +77,16 @@ function IOSSetting(){
 		return this.ratioCalculation(60,1.5);
 	};
 	
+	IOSSetting.prototype.defualtPostContentWidth = function(){
+		return this.defualtContentWidth() - (2 * this.defualtTop());
+	};
+	
 	IOSSetting.prototype.postWithImageWidth = function(){
-		return this.ratioCalculation(280,2);
+		return this.defualtPostContentWidth() - (this.postImageHeight() + this.ratioCalculation(10,2));
 	};
 	
 	IOSSetting.prototype.postWithNoImageWidth = function(){
-		return this.ratioCalculation(200,2.5);
+		return this.defualtPostContentWidth();
 	};
 	
 	IOSSetting.prototype.postDescriptionHeight = function(){
@@ -101,9 +105,6 @@ function IOSSetting(){
 		return this.ratioCalculation(15,2);
 	};
 	
-	IOSSetting.prototype.defualtPostContentWidth = function(){
-		return this.defualtContentWidth() - (2 * this.defualtTop());
-	};
 	
 	IOSSetting.prototype.postTitleWidth = function(){
 		return this.ratioCalculation(250,2);
@@ -116,7 +117,7 @@ function IOSSetting(){
 	};
 	
 	IOSSetting.prototype.eventLabelWidth = function(){
-		return this.ratioCalculation(200,2);
+		return this.ratioCalculation(240,20);
 	};
 	
 	IOSSetting.prototype.addEventButtonWidth = function(){
@@ -310,7 +311,7 @@ function IOSSetting(){
 	};
 	
 	IOSSetting.prototype.gameWatchTableRowHeight = function(){
-		return this.ratioCalculation(150,2);
+		return this.ratioCalculation(100,2);
 	};
 	
 	/*Iowa City Benefits  */
@@ -319,7 +320,11 @@ function IOSSetting(){
 	};
 	
 	IOSSetting.prototype.iowaCityBenefitsTextViewHeight = function(){
-		return this.ratioCalculation(70,2);
+		return this.ratioCalculation(90,1.5);
+	};
+	
+	IOSSetting.prototype.iowaCityBenefitsTableRowHeight = function(){
+		return this.ratioCalculation(80,2);
 	};
 	
 	/*Contact Section */
@@ -342,6 +347,50 @@ function IOSSetting(){
 	IOSSetting.prototype.contactSMIconWidth = function(){
 		return this.ratioCalculation(48,1.5);
 	};
+	
+	/* Pull to Refresh Pane Design */
+	
+	IOSSetting.prototype.refreshPaneViewWidth = function(){
+		return this.ratioCalculation(200,1.5);
+	};
+	
+	IOSSetting.prototype.refreshPaneActivityIndicatorWidth = function(){
+		return this.ratioCalculation(30,1.5);
+	};
+	
+	IOSSetting.prototype.refreshPaneActivityIndicatorLeft = function(){
+		return this.ratioCalculation(20,2.5);
+	};
+	
+	IOSSetting.prototype.refreshPaneActivityIndicatorBottom = function(){
+		return this.ratioCalculation(20,1.1);
+	};
+	
+	IOSSetting.prototype.refreshPaneActivityIndicatorHeight = function(){
+		return this.ratioCalculation(30,1.5);
+	};
+	
+	IOSSetting.prototype.refreshPaneTableHeaderHeight = function(){
+		return this.ratioCalculation(60,1.5);
+	};
+	
+	IOSSetting.prototype.refreshPaneLastUpdatedLabelFontSize = function(){
+		return this.ratioCalculation(12,1.5);
+	};
+	
+	IOSSetting.prototype.refreshPaneLastUpdatedLabelBottom = function(){
+		return this.ratioCalculation(15,1.1);
+	};
+	
+	IOSSetting.prototype.refreshPaneStatusLabelFontSize = function(){
+		return this.ratioCalculation(13,1.5);
+	};
+	
+	IOSSetting.prototype.refreshPaneStatusLabelBottom = function(){
+		return this.ratioCalculation(30,1.1);
+	};
+
+
  
 }
 

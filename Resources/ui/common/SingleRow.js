@@ -3,9 +3,8 @@ var EditText = require('ui/common/EditText');
 var WebView = require('ui/common/WebView');
 var EK = require("ti.eventkit");
 Titanium.event = require('ti.eventkit');
-var IOSSetting = require('ui/common/IOSSetting');
 var TableRows = require('ui/common/TableRows');
-var setting = new IOSSetting();
+
 /*
  * Return a Single Post Area for Events Window
  * that contains Tilte, Time, and Place

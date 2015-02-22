@@ -1,8 +1,7 @@
 var DateObject = require('ui/common/DateObject');
 var CachedImageView = require('ui/common/CachedImageView');
 var WebView = require('ui/common/WebView');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+var Description = require('ui/common/Description');
 
 /*
  * Post Object
@@ -176,7 +175,7 @@ function getDescriptionLabel(description,postheight) {
 	});
 
 	var text = Ti.UI.createLabel({
-		text: description,
+		text: (new Description(description)).getDescription(),
 		left: 10,
 		top: 0,
 		bottom: 10,

@@ -1,6 +1,5 @@
 var WebView = require('ui/common/WebView');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+
 /*
  * Return Iowa Magazine's Window Header
  */

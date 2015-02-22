@@ -1,9 +1,9 @@
 var DateObject = require('ui/common/DateObject');
 var CachedImageView = require('ui/common/CachedImageView');
 var WebView = require('ui/common/WebView');
-var IOSSetting = require('ui/common/IOSSetting');
 var TableRows = require('ui/common/TableRows');
-var setting = new IOSSetting();
+var TableStyling = require('ui/common/TableStyling');
+var Description = require('ui/common/Description');
 /*
  * Post Object
  * Essential attributes
@@ -35,6 +35,7 @@ function Row(post, tracker, title) {
 		left: 				0,
 		top:				0,
 		bottom:				0,
+		scrollable: false,
 		padding:			0
 	});
 	
@@ -46,7 +47,7 @@ function Row(post, tracker, title) {
 		left: 				0,
 		top:				0,
 		bottom:				0,
-		padding:			0
+		padding:			0,
 	});
 
 
@@ -185,7 +186,7 @@ function getTitleLabel(title) {
 function getDescriptionLabel(description) {
 
 	var text = Ti.UI.createLabel({
-		text: description,
+		text: (new Description(description)).getDescription(),
 		left: setting.defualtLeft(),
 		bottom: setting.defualtBottom(),
 		top: 0,

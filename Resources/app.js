@@ -13,10 +13,11 @@
 		var MenuRow = require('ui/common/MenuRow');
 		var NationalBenefitsWindow = require('ui/common/NationalBenefitsWindow');
 		var EventWindow = require('ui/common/EventWindow');
+		var IOSSetting = require('ui/common/IOSSetting');
 		var Tracker = require('ui/common/Tracker');
 		var Feeds = new Feed();
 		var tracker = new Tracker();
-		
+		var setting = new IOSSetting();
 		var win = new RootWindow("Home", tracker);
 		
 		win.moving = false;
@@ -65,7 +66,7 @@
 		
 		//"Once a Hawkeye" Image
 		var taglinerow = Ti.UI.createImageView({
-			height: 250,
+			height: height,
 			width: 270,
 			top: 350,
 			backgroundImage: 'menubg.jpg'

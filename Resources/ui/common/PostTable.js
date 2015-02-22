@@ -16,41 +16,41 @@ function PostTable() {
 
 	var tableHeader = Ti.UI.createView({
 		backgroundColor:"#e2e2e2",
-		width:320,
-		height:60
+		width: setting.platformWidth(),
+		height:setting.refreshPaneTableHeaderHeight()
 	});
 
 	var statusLabel = Ti.UI.createLabel({
 		text:"Pull down to refresh...",
-		left:55,
-		width:200,
-		bottom:30,
+		//left:55,
+		width:setting.refreshPaneViewWidth(),
+		bottom:setting.refreshPaneStatusLabelBottom(),
 		height:"auto",
 		color:"#576c89",
 		textAlign:"center",
-		font:{fontSize:13,fontWeight:"bold"},
+		font:{fontSize:setting.refreshPaneStatusLabelFontSize(),fontWeight:"bold"},
 		shadowColor:"#fff",
 		shadowOffset:{x:0,y:1}
 	});
 
 	var lastUpdatedLabel = Ti.UI.createLabel({
 		text:"Last Updated: "+ (new FormatDate()).getDate(),
-		left:55,
-		width:200,
-		bottom:15,
+		//left:55,
+		width: setting.refreshPaneViewWidth(),
+		bottom:setting.refreshPaneLastUpdatedLabelBottom(),
 		height:"auto",
 		color:"#576c89",
 		textAlign:"center",
-		font:{fontSize:12},
+		font:{fontSize:setting.refreshPaneLastUpdatedLabelFontSize()},
 		shadowColor:"#fff",
 		shadowOffset:{x:0,y:1}
 	});
 
 	var actInd = Titanium.UI.createActivityIndicator({
-		left:20,
-		bottom:13,
-		width:30,
-		height:30
+		left:setting.refreshPaneActivityIndicatorLeft(),
+		bottom:setting.refreshPaneActivityIndicatorBottom(),
+		width:setting.refreshPaneActivityIndicatorWidth(),
+		height:setting.refreshPaneActivityIndicatorHeight()
 	});
 
 	tableHeader.add(statusLabel);

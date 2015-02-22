@@ -10,8 +10,8 @@ var FormatDate = require('ui/common/FormatDate');
 var StaticAd = require('ui/common/StaticAd');
 var WebView = require('ui/common/WebView');
 var Feed = require('ui/common/Feed');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+
+
 
 /*
  * Home Window

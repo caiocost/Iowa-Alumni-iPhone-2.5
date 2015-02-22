@@ -6,8 +6,8 @@ var Feed = require('ui/common/Feed');
 var Map = require('ti.map');
 var TableRows = require('ui/common/TableRows');
 var TableStyling = require('ui/common/TableStyling');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+
+
 
 function MapWindow(title, tracker) {
 	tracker.trackScreen(title);
@@ -155,7 +155,7 @@ function MapWindow(title, tracker) {
 	    });
 	
 		(i % 2 == 0) ? row.backgroundColor = '#ffffff' : row.backgroundColor = '#cccccc';
-		var content = tableStyling.blankTableView(100);
+		var content = tableStyling.blankTableView(setting.iowaCityBenefitsTableRowHeight());
 		var rows = new TableRows();
 		
 	    var companyLabel = Ti.UI.createLabel({

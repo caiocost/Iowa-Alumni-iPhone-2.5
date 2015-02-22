@@ -6,9 +6,7 @@ var StaticAd = require('ui/common/StaticAd');
 var Feed = require('ui/common/Feed');
 var  GameWatchWindow = require('ui/common/GameWatchWindow');
 var ClubsWindow = require('ui/common/ClubsWindow');
-var IOSSetting = require('ui/common/IOSSetting');
 var TableRows = require('ui/common/TableRows');
-var setting = new IOSSetting();
 /*
  * Root Window for Clubs and Gamewatches
  */

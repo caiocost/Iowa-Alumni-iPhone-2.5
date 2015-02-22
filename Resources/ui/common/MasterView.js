@@ -1,3 +1,5 @@
+var IOSSetting = require('ui/common/IOSSetting');
+var setting = new IOSSetting();
 var Post = require('ui/common/Post'),
 	FeatureRow = require('ui/common/FeatureRow'),
 	Row = require('ui/common/Row'),
@@ -205,7 +207,7 @@ function MasterView(feed, title, tracker) {
 
 	// load initial rss feed
 	refreshRSS();
-	table.bottom = 70;
+	table.bottom = setting.staticAdHeight();
 	self.add(table);
 	
 	

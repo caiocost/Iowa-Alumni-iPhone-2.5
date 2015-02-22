@@ -1,8 +1,7 @@
 var WebView = require('ui/common/WebView');
 var GetFeed = require('ui/common/GetFeed');
 var SocialMediaIcons = require('ui/common/SocialMediaIcons');
-var IOSSetting = require('ui/common/IOSSetting');
-var setting = new IOSSetting();
+
 
 function HomeSMSection(tracker){
 	var socialMediaView = Ti.UI.createView({
