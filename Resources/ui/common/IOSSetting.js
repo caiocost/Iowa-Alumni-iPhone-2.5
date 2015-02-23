@@ -67,6 +67,12 @@ function IOSSetting(){
 		return this.ratioCalculation(70,1.5);
 	};
 	
+	/* Ad Design */
+	
+	IOSSetting.prototype.AdHeight = function(){
+		return this.ratioCalculation(70,2);
+	};
+	
 	/* Post Design */
 	
 	IOSSetting.prototype.postImageHeight = function(){
@@ -221,6 +227,10 @@ function IOSSetting(){
 		return this.ratioCalculation(90,2);
 	};
 	
+	IOSSetting.prototype.nationalBenefitsRowHeight = function(){
+		return this.ratioCalculation(110,1.5);
+	};
+	
 	IOSSetting.prototype.nationalBenefitsHeaderWidth = function(){
 		return Ti.Platform.displayCaps.platformWidth - 4;
 	};
@@ -302,7 +312,7 @@ function IOSSetting(){
 	};
 	
 	IOSSetting.prototype.clubsTableRowHeight = function(){
-		return this.ratioCalculation(100,2);
+		return this.ratioCalculation(150,2);
 	};
 	
 	/*Game Watch Section */
@@ -329,11 +339,11 @@ function IOSSetting(){
 	
 	/*Contact Section */
 	IOSSetting.prototype.contactViewHeight = function(){
-		return this.ratioCalculation(160,2);
+		return this.ratioCalculation(170,2);
 	};
 	
 	IOSSetting.prototype.contactEmailLine = function(){
-		return this.basicCalculation(99,129);
+		return this.basicCalculation(99,144);
 	};
 	
 	IOSSetting.prototype.contactLevittLine = function(){
@@ -389,9 +399,44 @@ function IOSSetting(){
 	IOSSetting.prototype.refreshPaneStatusLabelBottom = function(){
 		return this.ratioCalculation(30,1.1);
 	};
+	
+	/*IIB & IAM Feature Row */
 
-
- 
+ 	IOSSetting.prototype.feedFeatureRowHeight= function(){
+		return this.ratioCalculation(355,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureContainerHeight= function(){
+		return this.ratioCalculation(300,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureContainerAdditionalSpace = function(){
+		return this.ratioCalculation(95,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureContainerAdditionalTextSpace = function(){
+		return this.ratioCalculation(30,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureImageboxTop = function(){
+		return this.ratioCalculation(30,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureDecriptionHeight= function(){
+		return this.ratioCalculation(55,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureShadowHeight= function(){
+		return this.ratioCalculation(150,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureShadowTopDiff= function(){
+		return this.ratioCalculation(120,1.5);
+	};
+	
+	IOSSetting.prototype.feedFeatureOverlayHeight= function(){
+		return this.ratioCalculation(40,1.5);
+	};
 }
 
 module.exports = IOSSetting;

@@ -53,19 +53,12 @@ function NationalBenefitsWindow(title, tracker){
 	
 	var data = [];
 	for (var i = 0; i <= discount.length - 1; i++) {
-		if (i % 2 == 0){
-		    var row = Ti.UI.createTableViewRow({
-		        height: 'auto',
-		        bottom: setting.defualtBottom(),
-		    });
-		}
-		else{
-			var row = Ti.UI.createTableViewRow({
-		        height: 'auto',
-		        backgroundColor:'#cccccc',
-		        bottom: setting.defualtBottom(),
-		    });
-		}
+	    var row = Ti.UI.createTableViewRow({
+	        height: setting.nationalBenefitsRowHeight(),
+	        bottom: setting.defualtBottom(),
+	    });
+	
+		(i % 2 == 0) ? row.backgroundColor = '#ffffff' : row.backgroundColor = '#cccccc';
 		
 		var content = Ti.UI.createTableView({
 			separatorColor: 	'transparent',

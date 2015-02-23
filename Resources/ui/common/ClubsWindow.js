@@ -35,7 +35,7 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 
 	    var row = Ti.UI.createTableViewRow({
 	    	city: clubInfoData[i].city,
-	        height: 'auto',
+	        height: setting.clubsTableRowHeight(),
 	        selectionStyle: 'none',
 	        index: i,
 	        bottom: 10
@@ -110,7 +110,7 @@ function ClubsWindow(clubData, clubInfoData,  tracker, top){
 	    
 	    var iconsView = Ti.UI.createView({
 			backgroundColor: 	'transparent',
-			height:				'auto',
+			height:				setting.clubsIconsHeight(),
 			left: 0,
 			width: setting.platformWidth(),
 		});

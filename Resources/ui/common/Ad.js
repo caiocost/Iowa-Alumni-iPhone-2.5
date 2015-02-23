@@ -10,7 +10,7 @@ function Ad(post, tracker, title) {
 
     var row = Ti.UI.createTableViewRow({
 		hasChild:true,
-		height: setting.staticAdHeight(),
+		height: setting.AdHeight(),
 		padding: 0,
 		top: 0,
 		bottom: 0,
@@ -26,7 +26,7 @@ function Ad(post, tracker, title) {
 	var container =  Titanium.UI.createView({
 		backgroundColor: 'transparent',
 		width: setting.defualtContentWidth(),
-		height: setting.staticAdHeight(),
+		height: setting.AdHeight(),
 		left: 			setting.defualtLeft(),
 		top:			-5,
 		bottom:			0,
@@ -39,7 +39,7 @@ function Ad(post, tracker, title) {
 		image: post.ad,
 		defaultImage:  "loader480x120.png",
 		width: setting.defualtContentWidth(),
-		height: setting.staticAdHeight(),
+		height: setting.AdHeight(),
 		hires: true,
 		top: setting.defualtTop()
 		

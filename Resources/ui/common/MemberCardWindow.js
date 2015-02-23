@@ -14,6 +14,7 @@ function  MemberCardWindow(title, tracker){
 		backgroundColor: 	'transparent',
 		height:				'auto',
 		width: 				setting.platformWidth(),
+		scrollable: false,
 		left: 				0,
 		top:				0,
 		bottom:				0,

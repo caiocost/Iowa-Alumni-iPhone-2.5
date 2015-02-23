@@ -15,7 +15,7 @@ function FeatureRow(post, tracker, title) {
     var row = Ti.UI.createTableViewRow({
 		hasChild:true,
 		link: post.url,
-		height: 355,
+		height: setting.feedFeatureRowHeight(),
 		padding: 0,
 		top: 0,
 		bottom: 0,
@@ -29,7 +29,7 @@ function FeatureRow(post, tracker, title) {
 
 	var container =  Titanium.UI.createView({
 		backgroundColor: 'transparent',
-			height:			300,
+			height:			setting.feedFeatureContainerHeight(),
 			width: setting.defualtContentWidth(),
 			top: setting.defualtTop(),
 			left: setting.defualtLeft(),
@@ -39,39 +39,39 @@ function FeatureRow(post, tracker, title) {
 	});
 
 	this.containerheight = getContainerHeight(post.image);
-	container.height 	 = this.containerheight + 65 + 30;
-	row.height 			 = this.containerheight + 100 + 8;
+	container.height 	 = this.containerheight + setting.feedFeatureContainerAdditionalSpace();
+	row.height 			 = this.containerheight + setting.feedFeatureContainerAdditionalSpace() + setting.defualtBottom();
 
 	var imagebox = Ti.UI.createImageView({
 		image: post.image,
 		width: setting.defualtContentWidth(),
 		height: this.containerheight,
 		hires: true,
-		top: 30
+		top: setting.feedFeatureImageboxTop()
 	});
 	//new CachedImageView('imageDirectoryName', post.image, imagebox);
 	var overlay = Ti.UI.createImageView({
 		width: setting.defualtContentWidth(),
-		height: 40,
+		height: setting.feedFeatureOverlayHeight(),
 		hires: true,
 		top: 1,
 		image: 'gold.png'
 	});
 	var shadow = Ti.UI.createImageView({
 		width: setting.defualtContentWidth(),
-		height: 150,
+		height: setting.feedFeatureShadowHeight(),
 		hires: true,
-		top: this.containerheight-120,
+		top: this.containerheight-setting.feedFeatureShadowTopDiff(),
 		image: 'shadow.png'
 	});
 	container.add(imagebox);
 	container.add(shadow);
 	container.add(overlay);
 	
-	titlelbl = getTitleLabel(post.title,this.containerheight+30);
+	titlelbl = getTitleLabel(post.title,this.containerheight+setting.feedFeatureContainerAdditionalTextSpace());
 	container.add(titlelbl);
 
-	desclbl  = getDescriptionLabel(post.description,this.containerheight+30);
+	desclbl  = getDescriptionLabel(post.description,this.containerheight+setting.feedFeatureContainerAdditionalTextSpace());
 	container.add(desclbl);
 
 
@@ -82,12 +82,12 @@ function FeatureRow(post, tracker, title) {
 		bottom: 10,
 		height: 15,
 		textAlign:'left',
-		width: 270,
+		width: setting.defualtContentWidth(),
 		color:'#5c4e1a',
 		shadowColor:'#f0d87f',
         shadowOpacity:0.5,
         shadowOffset:{x:0, y:1},
-		font:{fontFamily:'HelveticaNeue-CondensedBold',fontSize:12,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-CondensedBold',fontSize:setting.postDescriptionFontSize(),fontWeight:'bold'}
 	});
 	container.add(posted);
 
@@ -123,7 +123,7 @@ function getContainerHeight(img) {
 	var width = tempimagebox.toImage().width;
 	var ratio = height / width;
 
-	return Math.floor( 300 * ratio );
+	return Math.floor( setting.feedFeatureContainerHeight() * ratio );
 }
 
 function getTitleLabel(title,postheight) {
@@ -135,7 +135,7 @@ function getTitleLabel(title,postheight) {
 		height:'auto',
 		width: setting.postTitleWidth(),
 		color:'#efc006',
-		font:{fontFamily:'HelveticaNeue-Light',fontSize:25,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Light',fontSize:setting.featureRowHeaderFontSize(),fontWeight:'bold'}
 	});
 	var view = Ti.UI.createView({
 		width: setting.postTitleWidth(),
@@ -146,8 +146,8 @@ function getTitleLabel(title,postheight) {
 	
 	var titlelbl = Ti.UI.createLabel({
 		text: title,
-		left: 10,
-		bottom:10,
+		left: setting.defualtLeft(),
+		bottom:setting.defualtBottom(),
 		height:theheight,
 		textAlign:'left',
 		width: setting.postTitleWidth(),
@@ -155,7 +155,7 @@ function getTitleLabel(title,postheight) {
 		shadowColor:'#000000',
         shadowOpacity:0.5,
         shadowOffset:{x:0, y:1},
-		font:{fontFamily:'HelveticaNeue-Light',fontSize:25,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Light',fontSize:setting.featureRowHeaderFontSize(),fontWeight:'bold'}
 	});
 	
 	titlelbl.top = postheight - theheight - 5;
@@ -170,23 +170,23 @@ function getDescriptionLabel(description,postheight) {
 		backgroundColor: '#0c0c0c',
 		backgroundImage: 'dark.jpg',
 		width: setting.defualtContentWidth(),
-		height: 65,
+		height: setting.defualtPostContentWidth(),
 		top: postheight
 	});
 
 	var text = Ti.UI.createLabel({
 		text: (new Description(description)).getDescription(),
-		left: 10,
+		left: setting.defualtLeft(),
 		top: 0,
-		bottom: 10,
-		height: 55,
+		bottom: setting.defualtBottom(),
+		height: setting.feedFeatureDecriptionHeight(),
 		textAlign:'left',
-		width: setting.postWithImageWidth(),
+		width: setting.defualtPostContentWidth(),
 		color:'#ffffff',
 		shadowColor:'#000000',
         shadowOpacity:0.5,
         shadowOffset:{x:0, y:1},
-		font:{fontFamily:'HelveticaNeue-Light',fontSize:14,fontWeight:'bold'}
+		font:{fontFamily:'HelveticaNeue-Light',fontSize:setting.sectionTextFontSize(),fontWeight:'bold'}
 	});
 	view.add(text);
 
