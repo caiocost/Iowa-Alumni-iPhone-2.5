@@ -212,13 +212,13 @@ function MasterView(feed, title, tracker) {
 	
 	
 	if ( feed == Feeds.iowaInsiderFeed()){
-		var ad = new StaticAd(13,350, tracker, title);
+		var ad = new StaticAd(13, tracker, title);
 	}
 	else if ( feed == Feeds.magazineFeed()){
-		var ad = new StaticAd(12,350, tracker, title);
+		var ad = new StaticAd(12, tracker, title);
 	}
 	else {
-		var ad = new StaticAd(10,350, tracker, title);
+		var ad = new StaticAd(10, tracker, title);
 	}
 	
 	self.add(ad);

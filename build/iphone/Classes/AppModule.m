@@ -65,7 +65,9 @@ extern BOOL const TI_APPLICATION_ANALYTICS;
         [nc removeObserver:thisModule];
     }
     /* Because of other issues, we must leak the modules as well as the runtime */
+#ifndef __clang_analyzer__
     [delegateModules copy];
+#endif
     [delegateModules removeAllObjects];
     
     /* Disconnect the Kroll bridge, and spoof the shutdown */
@@ -474,7 +476,7 @@ extern BOOL const TI_APPLICATION_ANALYTICS;
 
 - (void)fireSystemEvent:(id)args
 {
-	NSString *eventName;
+	NSString *eventName = nil;
 	id argument = nil;
 	UIAccessibilityNotifications notification;
 	

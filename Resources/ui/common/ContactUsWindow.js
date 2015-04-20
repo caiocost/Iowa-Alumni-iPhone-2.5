@@ -43,7 +43,7 @@ function ContactUsWindow(title, tracker) {
 		
 	var self = Ti.UI.createView({});
 	
-	var ad = new StaticAd(14,392, tracker, title);
+	var ad = new StaticAd(14, tracker, title);
 	
 	
 	// The Contact View ;

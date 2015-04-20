@@ -1,8 +1,6 @@
 var DateObject = require('ui/common/DateObject');
 var EditText = require('ui/common/EditText');
 var WebView = require('ui/common/WebView');
-var EK = require("ti.eventkit");
-Titanium.event = require('ti.eventkit');
 var TableRows = require('ui/common/TableRows');
 
 /*
@@ -163,6 +161,7 @@ function getTitleLabel(title) {
 }
 
 function performCalendarWriteFunctions(post){
+	
     var dlg = Titanium.UI.createAlertDialog({
      	title: post.title,
 	    message:'Do you want to save this event to your calendar?', 
@@ -170,6 +169,7 @@ function performCalendarWriteFunctions(post){
 	});
 	dlg.addEventListener('click', function(ev) {
 	    if (ev.index == 0) { // clicked "Yes"
+	    
 	    	var defCalendar = Ti.Calendar.defaultCalendar;
 		   	var date1 = new Date(post.startDate),
         	date2 = new Date(post.endDate);
@@ -207,6 +207,7 @@ function performCalendarWriteFunctions(post){
 	    }
 	});
 	dlg.show();
+	
 }
 
 function getpubDateLabel(pubDate) {

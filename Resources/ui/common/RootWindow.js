@@ -192,7 +192,7 @@ function RootWindow(title, tracker) {
 	// load initial rss feed
 	refreshRSS();
 
-	var ad = new StaticAd(9,392, tracker, title);
+	var ad = new StaticAd(9, tracker, title);
 	
 	
 	masterView.add(ad);
@@ -203,7 +203,7 @@ function RootWindow(title, tracker) {
 	return self;
 
 }
-
+/*
 function printEventDetails(eventID) {
     Ti.API.info('eventID:' + eventID);
     var defCalendar = Ti.Calendar.defaultCalendar;
@@ -276,5 +276,5 @@ function performCalendarWriteFunctions(){
     
     
 }
-
+*/
 module.exports = RootWindow;

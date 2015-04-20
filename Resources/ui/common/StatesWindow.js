@@ -113,7 +113,7 @@ function StatesWindow(title, tracker){
 		});
 	});
 
-	var ad = new StaticAd(11,395, tracker, title);
+	var ad = new StaticAd(11, tracker, title);
 	masterView.add(ad);
 	mainTable.setData(rows.getRows());
 	masterView.add(mainTable);

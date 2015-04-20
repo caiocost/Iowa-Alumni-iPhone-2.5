@@ -114,6 +114,7 @@ function SinglePost (post, tracker, title){
 		row.height = table.height + setting.defualtTop();
 		
 		table.setData(rows.getRows());
+		
 		row.add(table);
 		return row;
 } 

@@ -7,7 +7,7 @@ var Feed = require('ui/common/Feed');
  * Parameter "index" determine what ad is selected 
  * from the database.
  */
-function StaticAd(index, topPosition, tracker, title){
+function StaticAd(index, tracker, title){
 	var Feeds = new Feed();
 	var currentAd = new GetFeed(Feeds.staticaAdFeed());
 	var ad = Ti.UI.createImageView({
